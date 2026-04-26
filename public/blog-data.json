@@ -1,0 +1,43 @@
+{
+  "posts": [
+    {
+      "slug": "bookflow-small-team-booking-stack",
+      "title": "BookFlow and the Small-Team Booking Stack",
+      "date": "2026-04-24",
+      "description": "What the public BookFlow build shows about bundling storefront, scheduling, and lightweight CRM in one product.",
+      "image": "/work/bookflow.png",
+      "tags": [
+        "SaaS",
+        "Next.js",
+        "Booking"
+      ],
+      "authors": [
+        "Meridian Works"
+      ],
+      "content": "\nBookFlow describes itself publicly as a booking page, business website, and mini CRM in one. The live site carries that framing, and the public repo sharpens it further: multi-tenant booking SaaS, public storefront, scheduling, lead inbox, and AI assistant.\n\nThat combination matters because solo operators and small teams often buy those layers separately. A website lives in one tool, bookings in another, and lead history in a third. BookFlow's public positioning is to collapse that stack into one product surface.\n\nThe public repo gives the implementation enough shape to trust that reading. Its package file lists `Next.js 14`, `NextAuth`, `Prisma`, and `OpenAI`, and the route tree exposes product areas for:\n\n- landing pages\n- pricing and solutions pages\n- tenant storefronts\n- dashboard views\n- booking and lead APIs\n- AI chat routes\n\nEven without private metrics, there is a clear product decision here: do not make small teams glue together a storefront, scheduling engine, and lightweight CRM if one coherent product can do the job.\n\nThe interesting engineering move is not just the feature list. It is the fact that the public repo frames the project as a design-handoff-to-production port. That usually means the hard work is not only writing screens, but also making auth, data models, tenant handling, and AI behavior hold together once the design leaves the mockup stage.\n\nFor a portfolio, BookFlow works because the public evidence lines up across the live product, the README, and the code surface. It is easy to see what the product is for, what parts exist, and which technologies support the claim.\n"
+    },
+    {
+      "slug": "meetfuture-stateless-ai",
+      "title": "MeetFuture and the Case for Stateless AI",
+      "date": "2026-04-23",
+      "description": "Why the public MeetFuture build chooses a questionnaire, one generated future-self timeline, and a no-persistence chat flow.",
+      "image": "/work/meetfuture.png",
+      "tags": [
+        "AI",
+        "Next.js",
+        "Product Design"
+      ],
+      "authors": [
+        "Meridian Works"
+      ],
+      "content": "\nMeetFuture's public promise is unusually specific: answer a set of deep personal questions, generate one possible future-self timeline, then chat with that simulated future self. The live site says as much, and the public repo adds one important implementation detail: the app is stateless.\n\nThat choice changes the shape of the product.\n\nInstead of building a long-running memory system, the published app focuses on a single guided session. The repo README says there is no database and no persistence. The route tree backs that up with public endpoints for future generation and follow-up chat, plus modules for prompts, questions, and validation.\n\nFrom a product perspective, statelessness is not just a technical shortcut. It is also a trust and scope decision:\n\n| Public trait | What it changes |\n| --- | --- |\n| No persistence | Less personal history to store or secure |\n| Questionnaire first | The generation has structured input instead of vague prompting |\n| Separate generate and chat routes | The product can treat creation and conversation as distinct stages |\n\nThe repo package also makes the stack legible: `Next.js 15`, `React 19`, and `OpenAI`. That is enough public evidence to understand the product loop without pretending we know private internals that were never published.\n\nWhat makes MeetFuture strong portfolio material is the restraint. It does not try to be a generic AI chatbot. It is a shaped experience with a clear beginning, a clear transition into chat, and a delivery model that keeps the public story consistent with the code.\n\nFor teams building AI products, that is a useful reminder: the most convincing public proof is often not a bigger feature list. It is a tighter contract between product promise, technical shape, and what a visitor can verify for themselves.\n"
+    }
+  ],
+  "tags": [
+    "AI",
+    "Booking",
+    "Next.js",
+    "Product Design",
+    "SaaS"
+  ]
+}

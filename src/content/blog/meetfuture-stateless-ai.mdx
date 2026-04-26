@@ -1,0 +1,28 @@
+---
+title: "MeetFuture and the Case for Stateless AI"
+date: "2026-04-23"
+description: "Why the public MeetFuture build chooses a questionnaire, one generated future-self timeline, and a no-persistence chat flow."
+image: "/work/meetfuture.png"
+tags: ["AI", "Next.js", "Product Design"]
+authors: ["Meridian Works"]
+---
+
+MeetFuture's public promise is unusually specific: answer a set of deep personal questions, generate one possible future-self timeline, then chat with that simulated future self. The live site says as much, and the public repo adds one important implementation detail: the app is stateless.
+
+That choice changes the shape of the product.
+
+Instead of building a long-running memory system, the published app focuses on a single guided session. The repo README says there is no database and no persistence. The route tree backs that up with public endpoints for future generation and follow-up chat, plus modules for prompts, questions, and validation.
+
+From a product perspective, statelessness is not just a technical shortcut. It is also a trust and scope decision:
+
+| Public trait | What it changes |
+| --- | --- |
+| No persistence | Less personal history to store or secure |
+| Questionnaire first | The generation has structured input instead of vague prompting |
+| Separate generate and chat routes | The product can treat creation and conversation as distinct stages |
+
+The repo package also makes the stack legible: `Next.js 15`, `React 19`, and `OpenAI`. That is enough public evidence to understand the product loop without pretending we know private internals that were never published.
+
+What makes MeetFuture strong portfolio material is the restraint. It does not try to be a generic AI chatbot. It is a shaped experience with a clear beginning, a clear transition into chat, and a delivery model that keeps the public story consistent with the code.
+
+For teams building AI products, that is a useful reminder: the most convincing public proof is often not a bigger feature list. It is a tighter contract between product promise, technical shape, and what a visitor can verify for themselves.

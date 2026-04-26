@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 24 8% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 8% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 8% 8%;
+    --primary: 24 8% 8%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 40 13% 92%;
+    --secondary-foreground: 24 8% 8%;
+    --muted: 40 13% 94%;
+    --muted-foreground: 25 6% 39%;
+    --accent: 40 11% 90%;
+    --accent-foreground: 24 8% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 11% 84%;
+    --input: 35 11% 84%;
+    --ring: 24 8% 8%;
+    --luxury: 38 38% 43%;
+    --chart-1: 38 38% 43%;
+    --chart-2: 190 22% 31%;
+    --chart-3: 24 8% 8%;
+    --chart-4: 352 23% 46%;
+    --chart-5: 218 14% 41%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 24 8% 8%;
+    --foreground: 0 0% 96%;
+    --card: 24 8% 10%;
+    --card-foreground: 0 0% 96%;
+    --popover: 24 8% 10%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 24 8% 8%;
+    --secondary: 24 7% 15%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 24 7% 15%;
+    --muted-foreground: 35 7% 66%;
+    --accent: 24 7% 18%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 96%;
+    --border: 24 7% 19%;
+    --input: 24 7% 19%;
+    --ring: 0 0% 84%;
+    --luxury: 38 50% 62%;
+    --chart-1: 38 50% 62%;
+    --chart-2: 190 26% 56%;
+    --chart-3: 0 0% 96%;
+    --chart-4: 352 28% 62%;
+    --chart-5: 218 19% 65%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "liga" 1,
+      "kern" 1;
+  }
+
+  ::selection {
+    background: hsl(var(--luxury) / 0.2);
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

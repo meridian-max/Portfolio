@@ -1,0 +1,27 @@
+---
+title: "BookFlow and the Small-Team Booking Stack"
+date: "2026-04-24"
+description: "What the public BookFlow build shows about bundling storefront, scheduling, and lightweight CRM in one product."
+image: "/work/bookflow.png"
+tags: ["SaaS", "Next.js", "Booking"]
+authors: ["Meridian Works"]
+---
+
+BookFlow describes itself publicly as a booking page, business website, and mini CRM in one. The live site carries that framing, and the public repo sharpens it further: multi-tenant booking SaaS, public storefront, scheduling, lead inbox, and AI assistant.
+
+That combination matters because solo operators and small teams often buy those layers separately. A website lives in one tool, bookings in another, and lead history in a third. BookFlow's public positioning is to collapse that stack into one product surface.
+
+The public repo gives the implementation enough shape to trust that reading. Its package file lists `Next.js 14`, `NextAuth`, `Prisma`, and `OpenAI`, and the route tree exposes product areas for:
+
+- landing pages
+- pricing and solutions pages
+- tenant storefronts
+- dashboard views
+- booking and lead APIs
+- AI chat routes
+
+Even without private metrics, there is a clear product decision here: do not make small teams glue together a storefront, scheduling engine, and lightweight CRM if one coherent product can do the job.
+
+The interesting engineering move is not just the feature list. It is the fact that the public repo frames the project as a design-handoff-to-production port. That usually means the hard work is not only writing screens, but also making auth, data models, tenant handling, and AI behavior hold together once the design leaves the mockup stage.
+
+For a portfolio, BookFlow works because the public evidence lines up across the live product, the README, and the code surface. It is easy to see what the product is for, what parts exist, and which technologies support the claim.
