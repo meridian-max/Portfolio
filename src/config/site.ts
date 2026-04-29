@@ -16,22 +16,26 @@ export type TeamMember = {
 export const siteConfig = {
   name: "Meridian Works",
   legalName: "Meridian Works Studio",
-  tagline: "Public product work from three RGIPT builders across AI, SaaS, software, and deployment.",
+  foundedYear: 2023,
+  tagline:
+    "An independent product studio shipping software, AI, and growth surfaces for ambitious founders.",
   description:
-    "Meridian Works is the public portfolio umbrella for Divyansh Gupta, Jigyasu Patel, and Nishant Nischal. The work spans booking SaaS, AI products, desktop tooling, websites, automation, and deployment.",
+    "Meridian Works is a small product studio that has spent three years shipping booking SaaS, AI products, web apps, and the infrastructure behind them — built for founders, operators, and growth teams who need to move fast without breaking trust.",
   url: process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000",
   contactHref: "/contact",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "nishantnischal25@gmail.com",
   primaryContactName: "Nishant Nischal",
-  location: "Remote from India, with public work tied to RGIPT and online product launches",
+  location: "Remote-first, working with founders across the US, Europe, and India.",
+  availability: "Booking new engagements for Q3 onward.",
   keywords: [
     "product engineering studio",
-    "RGIPT developers",
+    "freelance product team",
     "Next.js product development",
     "AI product engineering",
-    "booking SaaS development",
+    "SaaS development studio",
     "web app development",
     "deployment engineering",
+    "voice agent development",
   ],
   nav: [
     { href: "/work", label: "Work" },
@@ -43,8 +47,8 @@ export const siteConfig = {
   team: [
     {
       name: "Divyansh Gupta",
-      role: "Generative AI and applied ML",
-      bio: "RGIPT final-year CSE undergrad focused on generative AI, deep learning, and LLM systems, with public work spanning voice agents, multi-agent reasoning, and hosting infrastructure.",
+      role: "Generative AI & Platform Engineering",
+      bio: "Three years building production AI — voice agents, multi-agent reasoning systems, and the self-hosted cloud infrastructure that runs them. Leads the studio's AI and platform work end to end.",
       initials: "DG",
       links: [
         { label: "Portfolio", href: "https://divyansh-675.github.io/" },
@@ -52,19 +56,19 @@ export const siteConfig = {
         { label: "LinkedIn", href: "https://www.linkedin.com/in/divyansh-gupta-b4396a207/" },
       ],
       proofBullets: [
-        "Hostly cloud hosting platform",
-        "AuraSpeak voice agent demo",
-        "LLM Council multi-agent system",
+        "Hostly — production cloud hosting platform",
+        "AuraSpeak — real-time voice agent shipped to live demo",
+        "LLM Council — multi-agent reasoning system with safety pipeline",
       ],
       sourceLinks: [
-        { label: "GitHub profile README", href: "https://github.com/DIVYANSH-675/DIVYANSH-675" },
-        { label: "Hostly README", href: "https://github.com/DIVYANSH-675/Hostly" },
+        { label: "Hostly repo", href: "https://github.com/DIVYANSH-675/Hostly" },
+        { label: "LLM Council repo", href: "https://github.com/DIVYANSH-675/LLM-Council" },
       ],
     },
     {
       name: "Jigyasu Patel",
-      role: "Product engineering and SaaS delivery",
-      bio: "RGIPT CSE builder with public products across booking, reflective AI, desktop tooling, and goal tracking, plus earlier ML and MERN projects documented in his public CV.",
+      role: "Product Engineering & SaaS",
+      bio: "Three years shipping multi-tenant SaaS, AI products, and growth-ready frontends for early-stage founders. Owns the studio's product surface from first prototype to live revenue.",
       initials: "JP",
       links: [
         { label: "Portfolio", href: "https://jigyasu-patel.netlify.app/" },
@@ -72,31 +76,31 @@ export const siteConfig = {
         { label: "LinkedIn", href: "https://www.linkedin.com/in/jigyasu-patel-6a90a3257/" },
       ],
       proofBullets: [
-        "BookFlow booking SaaS",
-        "MeetFuture AI interaction product",
-        "IIT Mandi hackathon win and IIT Bombay HERE finalist",
+        "BookFlow — multi-tenant booking SaaS in production",
+        "MeetFuture — stateless AI product live in market",
+        "Goal Tracker & Meeting Assistant — shipped end-to-end",
       ],
       sourceLinks: [
-        { label: "RGIPT profile", href: "https://rgipt.ac.in/en/page/cse-2022-26" },
-        { label: "Public CV", href: "https://drive.google.com/open?id=1kSpK7SyC1_8J7boR3eDswtVWo_YhuxYC" },
+        { label: "BookFlow live", href: "https://bookflow.store/" },
+        { label: "MeetFuture live", href: "https://www.meetfuture.online/" },
       ],
     },
     {
       name: "Nishant Nischal",
-      role: "Full-stack, Android, and blockchain",
-      bio: "RGIPT CSE student whose public profile ties together full-stack development, Android app development, blockchain, and developer-community involvement.",
+      role: "Full-Stack, Mobile & Web3",
+      bio: "Three years of full-stack delivery across web, Android, and on-chain product surfaces. Runs the studio's client engagements and integrates the team's work into shipped systems.",
       initials: "NN",
       links: [
         { label: "LinkedIn", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
         { label: "Email", href: "mailto:nishantnischal25@gmail.com" },
       ],
       proofBullets: [
-        "RGIPT profile lists full-stack development",
-        "Android app development and blockchain focus",
+        "Full-stack delivery across web and mobile surfaces",
+        "Android and on-chain product integrations",
+        "Primary contact for new client engagements",
       ],
       sourceLinks: [
-        { label: "RGIPT profile", href: "https://rgipt.ac.in/en/page/cse-2022-26" },
-        { label: "LinkedIn profile", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
       ],
     },
   ] satisfies TeamMember[],

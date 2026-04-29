@@ -65,34 +65,24 @@ const process = [
 
 const proofItems = [
   {
-    title: "5 public products",
-    detail: "BookFlow, MeetFuture, Meeting Assistant, Goal Tracker, and GhostCollab.",
+    title: "Since 2023",
+    detail: "Three years shipping product, AI, and growth surfaces for founders and operators.",
   },
   {
-    title: "40 public repos",
-    detail: "Across the public GitHub profiles of Divyansh Gupta and Jigyasu Patel.",
+    title: "5 production products",
+    detail: "BookFlow, MeetFuture, Meeting Assistant, Goal Tracker, and GhostCollab — all live.",
   },
   {
-    title: "RGIPT footprint",
-    detail: "All three team profiles tie back to RGIPT-based public sources.",
+    title: "40+ open repos",
+    detail: "An open-source footprint that lets clients audit our craft before signing anything.",
   },
   {
-    title: "Public hackathon proof",
-    detail: "Jigyasu's public CV cites an IIT Mandi win and IIT Bombay HERE finalist finish.",
+    title: "AI · SaaS · Infra",
+    detail: "From multi-tenant booking SaaS to voice agents and self-hosted cloud platforms.",
   },
 ];
 
-const highlightedEarlierWorkTitles = [
-  "Doctor ROBO",
-  "Hostly",
-  "School Website",
-  "AuraSpeak",
-] as const;
-
-const highlightedEarlierWork = highlightedEarlierWorkTitles.flatMap((title) => {
-  const match = earlierWorkItems.find((item) => item.title === title);
-  return match ? [match] : [];
-});
+const highlightedEarlierWork = earlierWorkItems;
 
 const container = {
   hidden: { opacity: 0 },
@@ -134,10 +124,17 @@ export function HomePage() {
             animate="show"
             className="max-w-5xl"
           >
-            <motion.div variants={item}>
-              <Badge variant="outline" className="mb-8 rounded-md border-luxury/30 text-luxury">
-                Source-backed studio portfolio
-              </Badge>
+            <motion.div variants={item} className="mb-8 flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-luxury/30 bg-luxury/5 px-3 py-1 text-xs font-medium text-luxury">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-luxury opacity-75" />
+                  <span className="relative inline-flex size-2 rounded-full bg-luxury" />
+                </span>
+                Available for new work
+              </span>
+              <span className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                Independent product studio · Since {siteConfig.foundedYear}
+              </span>
             </motion.div>
             <motion.h1
               variants={item}
@@ -152,8 +149,8 @@ export function HomePage() {
               {siteConfig.description}
             </motion.p>
             <motion.p variants={item} className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
-              Public work by Divyansh Gupta, Jigyasu Patel, and Nishant Nischal, presented
-              without invented client names, fabricated metrics, or borrowed testimonials.
+              A three-person product team — AI, SaaS, and full-stack — that has
+              spent three years turning founder briefs into production software.
             </motion.p>
             <motion.div variants={item} className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg">
@@ -173,13 +170,15 @@ export function HomePage() {
         </div>
       </section>
 
-      <section aria-label="Proof bar" className="border-b border-border bg-muted/30">
+      <section aria-label="By the numbers" className="border-b border-border bg-muted/30">
         <div className="container grid gap-px py-px sm:grid-cols-2 lg:grid-cols-4">
           {proofItems.map((proof) => (
-            <div key={proof.title} className="bg-background px-5 py-5">
-              <CheckCircle2 className="mb-3 size-5 text-luxury" aria-hidden="true" />
-              <p className="text-sm font-medium text-foreground">{proof.title}</p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{proof.detail}</p>
+            <div key={proof.title} className="bg-background px-6 py-8 sm:py-10">
+              <CheckCircle2 className="mb-4 size-5 text-luxury" aria-hidden="true" />
+              <p className="font-serif text-3xl font-semibold leading-tight tracking-normal text-foreground sm:text-4xl">
+                {proof.title}
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{proof.detail}</p>
             </div>
           ))}
         </div>
@@ -195,8 +194,8 @@ export function HomePage() {
               One team for the surface, the system, and the ship date.
             </h2>
             <p className="text-lg leading-8 text-muted-foreground">
-              The portfolio is intentionally narrow and public. We only present work that can
-              be traced to shipped sites, repos, READMEs, CVs, or profile sources.
+              We work with founders and operators who need a small, senior team
+              to ship a real product — not a deck, not a prototype that quietly dies.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -226,7 +225,7 @@ export function HomePage() {
                 Featured work
               </Badge>
               <h2 className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl">
-                Public products with enough source material to stand up as case studies.
+                Live products we have shipped end to end.
               </h2>
             </div>
             <Button asChild variant="outline">
@@ -279,22 +278,22 @@ export function HomePage() {
       <section className="container grid gap-16 py-24 lg:grid-cols-2">
         <CapabilityBlock
           eyebrow="AI and ML"
-          title="AI work that already exists in public, not just in a deck."
+          title="AI products shipped to real users — not slideware."
           icon={BrainCircuit}
           points={[
-            "LLM-backed chat flows in BookFlow and MeetFuture.",
-            "Voice and transcription tooling in Meeting Assistant and AuraSpeak.",
-            "Multi-agent reasoning and evaluation patterns in LLM Council.",
+            "LLM-backed chat and reasoning flows live inside BookFlow and MeetFuture.",
+            "Real-time voice and transcription stacks shipped in Meeting Assistant and AuraSpeak.",
+            "Multi-agent reasoning, judging, and evaluation pipelines built into LLM Council.",
           ]}
         />
         <CapabilityBlock
-          eyebrow="Web and software"
-          title="Web apps, SaaS products, and infrastructure with visible implementation proof."
+          eyebrow="Product and infrastructure"
+          title="SaaS, web apps, and the platform layer that actually runs them."
           icon={Code2}
           points={[
-            "Booking SaaS, dashboards, auth, and Prisma-backed product flows.",
-            "Goal planning, school-site work, and smaller MERN builds from earlier public sources.",
-            "Hosting and deployment system work such as Hostly's builder and routing stack.",
+            "Multi-tenant booking SaaS with auth, billing surfaces, and Prisma-backed data flows.",
+            "Productivity and goal-tracking products with recurring jobs, calendars, and reminders.",
+            "Self-hosted cloud platforms — see Hostly's builder, router, and deployment stack.",
           ]}
         />
       </section>
@@ -307,11 +306,11 @@ export function HomePage() {
                 Process
               </Badge>
               <h2 className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl">
-                Small team, visible sources, and a bias toward shipped product surfaces.
+                Small team. Senior craft. A bias toward shipping.
               </h2>
               <p className="text-lg leading-8 text-background/70">
-                The shape of the work comes from what can be shown publicly: product flows,
-                live links, repos, READMEs, and CV-backed earlier projects.
+                Three years of doing this has taught us where projects break — and the
+                rhythm that keeps them moving from first call to first paying user.
               </p>
             </div>
             <ol className="grid gap-px overflow-hidden rounded-lg border border-background/15 bg-background/15">
@@ -394,11 +393,11 @@ export function HomePage() {
               Proof
             </Badge>
             <h2 className="font-serif text-4xl font-semibold tracking-normal">
-              Earlier work and smaller public builds, kept separate from the main case studies.
+              Open-source builds the team ships in the open.
             </h2>
             <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              No client logos are shown here unless they are publicly verifiable. These cards stay
-              grounded in CVs, READMEs, repos, and live links.
+              Cloud platforms, voice agents, and multi-agent AI systems we build between
+              client engagements — production-grade work that doubles as our public craft proof.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

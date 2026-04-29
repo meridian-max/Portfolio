@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Notes",
   description:
-    "Source-backed notes derived from Meridian Works public builds.",
+    "Engineering notes from the Meridian Works studio — what we have learned shipping booking SaaS, AI products, and platform infrastructure.",
 };
 
 export default function BlogLayout({

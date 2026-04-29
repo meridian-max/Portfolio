@@ -15,7 +15,7 @@ import { getBlogPosts } from "@/lib/mdx";
 export const metadata: Metadata = {
   title: "Notes",
   description:
-    "Two source-backed notes derived from Meridian Works public products and repos.",
+    "Engineering and product notes from Meridian Works — written from the products we have shipped.",
 };
 
 export default async function BlogPage() {
@@ -28,11 +28,11 @@ export default async function BlogPage() {
           Notes
         </Badge>
         <h1 className="font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
-          Notes pulled directly from the public products on this site.
+          Notes from inside the products we ship.
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          These posts stay close to what the team has actually published: live surfaces, repos,
-          README claims, and product behavior visible in public.
+          Written from the products themselves — what worked, what did not, and the
+          patterns that have held up across three years of shipping for founders.
         </p>
       </div>
 

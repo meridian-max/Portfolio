@@ -68,11 +68,11 @@ export default function ContactPage() {
           Contact
         </Badge>
         <h1 className="font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
-          Start with the outcome you need to ship.
+          Tell us what you are trying to ship.
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          The contact flow is intentionally email-first. The form below prepares a safe mail draft,
-          so there is no hidden backend, fake success state, or invented calendar link.
+          We reply to every project note within two business days. Send the outcome,
+          the constraints, and any links you already have — we will take it from there.
         </p>
       </div>
 
@@ -80,9 +80,9 @@ export default function ContactPage() {
         <div className="flex flex-col gap-6">
           <Card className="shadow-none">
             <CardHeader>
-              <CardTitle>Email the public contact</CardTitle>
+              <CardTitle>Email the studio</CardTitle>
               <CardDescription>
-                There is no public studio booking page yet, so the site routes first contact through email.
+                The fastest way to start. Replies within two business days.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
@@ -94,16 +94,16 @@ export default function ContactPage() {
               </Button>
               <p className="text-sm leading-6 text-muted-foreground">
                 Use this for scope, urgency, tech constraints, stack questions, or whether the
-                work should be a website, SaaS product, AI flow, automation pass, or deployment engagement.
+                engagement should be a website, SaaS product, AI flow, automation pass, or platform build.
               </p>
             </CardContent>
           </Card>
 
           <Card className="shadow-none">
             <CardHeader>
-              <CardTitle>Published profiles</CardTitle>
+              <CardTitle>Team</CardTitle>
               <CardDescription>
-                Public links for the three people behind the portfolio.
+                The three people you will work with directly.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
@@ -134,9 +134,9 @@ export default function ContactPage() {
 
         <Card className="shadow-none">
           <CardHeader>
-            <CardTitle>Project note</CardTitle>
+            <CardTitle>Project brief</CardTitle>
             <CardDescription>
-              This opens your email app with the message prefilled. No data is stored.
+              Fill this in and we will open your email app with a prefilled draft. No data is stored.
             </CardDescription>
           </CardHeader>
           <CardContent>

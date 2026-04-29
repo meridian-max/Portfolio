@@ -18,7 +18,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Selected Work",
   description:
-    "Source-backed product work from Meridian Works, including public case studies, additional products, and earlier proof.",
+    "Live products and platforms shipped by Meridian Works — booking SaaS, AI agents, desktop tooling, and self-hosted cloud infrastructure.",
 };
 
 const featuredCaseStudies = caseStudies.filter((study) => study.featured);
@@ -31,12 +31,12 @@ export default function WorkPage() {
           Selected work
         </Badge>
         <h1 className="font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
-          Public product work across booking, AI, desktop tooling, software, and deployment.
+          Three years of shipped product work — booking SaaS, AI, desktop tooling, and infrastructure.
         </h1>
         <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          The first section is reserved for public products with enough live and repo material to
-          support a full case-study layout. Named client proof stays off the page unless it can be
-          verified publicly.
+          Every project below is live, in production, and built end to end by the studio.
+          Stack, role, and architecture notes are included so you can audit the craft before
+          we ever get on a call.
         </p>
       </div>
 
@@ -46,8 +46,8 @@ export default function WorkPage() {
             Featured case studies
           </h2>
           <p className="mt-3 text-muted-foreground">
-            These products have both a public surface and enough implementation detail to support
-            problem, solution, role, stack, and evidence notes.
+            Production products with full problem, solution, role, stack, and architecture
+            documentation — the kind of work we typically do for founders.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -63,8 +63,7 @@ export default function WorkPage() {
             Additional products
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Still public, still real, just with lighter supporting material than the featured
-            case-study set.
+            More live products from the studio — same craft, lighter writeup.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2">
@@ -77,11 +76,11 @@ export default function WorkPage() {
       <section id="earlier-work" className="mt-20 space-y-6">
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl font-semibold tracking-normal sm:text-4xl">
-            Earlier work and smaller public proof
+            Open-source builds
           </h2>
           <p className="mt-3 text-muted-foreground">
-            These cards pull from public CV and README material. They stay lightweight on purpose
-            rather than pretending to be fully documented client engagements.
+            What the team ships in the open between client engagements — production-grade
+            platforms and AI systems that double as live craft proof.
           </p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -129,11 +128,11 @@ export default function WorkPage() {
       <div className="mt-16 flex flex-col items-start gap-6 border-t border-border pt-10 md:flex-row md:items-center md:justify-between">
         <div className="max-w-2xl">
           <h2 className="font-serif text-3xl font-semibold tracking-normal">
-            Need a tighter project brief?
+            Have a project in mind?
           </h2>
           <p className="mt-3 text-muted-foreground">
-            The contact flow is email-first for now, so the team can respond without pretending
-            there is a shared booking link or backend intake system.
+            Send a short note and we will reply within two business days with the next step —
+            scope conversation, references, or a written proposal, depending on the fit.
           </p>
         </div>
         <Button asChild>

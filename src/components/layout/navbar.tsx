@@ -66,7 +66,7 @@ export function Navbar() {
               <SheetHeader>
                 <SheetTitle>{siteConfig.name}</SheetTitle>
                 <SheetDescription>
-                  Source-backed product engineering navigation.
+                  Independent product studio — navigation menu.
                 </SheetDescription>
               </SheetHeader>
               <nav className="mt-8 flex flex-col gap-2" aria-label="Mobile navigation">
