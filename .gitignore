@@ -28,6 +28,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+dev-server.err
+
+# playwright / test artifacts
+/.playwright-mcp/
+/playwright-screenshots/
+portfolio-home.png
 
 # env files (can opt-in for committing if needed)
 .env*
