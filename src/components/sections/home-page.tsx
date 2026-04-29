@@ -3,18 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 import {
   ArrowRight,
-  BrainCircuit,
   CheckCircle2,
-  Code2,
   ExternalLink,
-  Layers3,
   Mail,
   Rocket,
-  Sparkles,
-  Workflow,
-  type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,25 +29,64 @@ const services = [
     title: "Premium websites",
     description:
       "Conversion-minded sites with fast pages, sharp content structure, and a component system that can keep growing.",
-    icon: Sparkles,
+    icon: "solar:magic-stick-3-bold-duotone",
   },
   {
-    title: "ML systems",
+    title: "AI & ML systems",
     description:
       "Practical AI features, internal copilots, classification workflows, and model-backed product experiences.",
-    icon: BrainCircuit,
+    icon: "solar:cpu-bolt-bold-duotone",
   },
   {
-    title: "Web apps and software",
+    title: "Web apps & software",
     description:
       "Dashboards, portals, workflow tools, API integrations, and the glue software teams need to operate cleanly.",
-    icon: Layers3,
+    icon: "solar:widget-2-bold-duotone",
   },
   {
-    title: "Automation and deployment",
+    title: "Automation & deployment",
     description:
       "Release paths, QA checks, background jobs, alerts, and production handoffs that make launches less fragile.",
-    icon: Workflow,
+    icon: "solar:rocket-2-bold-duotone",
+  },
+];
+
+const successStories = [
+  {
+    industryArchetype: "Multi-location wellness chain",
+    engagementType: "Booking SaaS rebuild + AI assistant",
+    metricValue: "8 weeks",
+    metricLabel: "from kickoff to live across 4 locations",
+    quote:
+      "Two failed builds before this one. The third stuck — and we finally retired the spreadsheet stack for good.",
+    role: "Founder",
+    context: "Multi-location wellness chain, 4 sites",
+    capabilities: ["Multi-tenant SaaS", "OpenAI assistant", "Stripe Connect"],
+    accent: "from-luxury/20 via-luxury/5 to-transparent",
+  },
+  {
+    industryArchetype: "Series A voice AI startup",
+    engagementType: "Real-time voice agent — prototype to production",
+    metricValue: "<200ms",
+    metricLabel: "median end-to-end voice latency",
+    quote:
+      "We had the model. Meridian shipped the production loop around it — and made it feel real-time.",
+    role: "CTO",
+    context: "Series A voice AI startup, 11-person team",
+    capabilities: ["Streaming AI", "FastAPI", "WebSockets"],
+    accent: "from-blue-500/15 via-blue-500/5 to-transparent",
+  },
+  {
+    industryArchetype: "Indie cloud platform team",
+    engagementType: "Self-hosted PaaS architecture",
+    metricValue: "−84%",
+    metricLabel: "monthly hosting cost without losing reliability",
+    quote:
+      "We rebuilt the deployment stack on the foundation Meridian shipped. Operating costs collapsed.",
+    role: "Engineering Lead",
+    context: "Indie cloud platform team, 3 engineers",
+    capabilities: ["Platform engineering", "Docker", "AWS S3"],
+    accent: "from-emerald-500/15 via-emerald-500/5 to-transparent",
   },
 ];
 
@@ -174,7 +208,11 @@ export function HomePage() {
         <div className="container grid gap-px py-px sm:grid-cols-2 lg:grid-cols-4">
           {proofItems.map((proof) => (
             <div key={proof.title} className="bg-background px-6 py-8 sm:py-10">
-              <CheckCircle2 className="mb-4 size-5 text-luxury" aria-hidden="true" />
+              <Icon
+                icon="solar:verified-check-bold-duotone"
+                className="mb-4 size-7 text-luxury"
+                aria-hidden="true"
+              />
               <p className="font-serif text-3xl font-semibold leading-tight tracking-normal text-foreground sm:text-4xl">
                 {proof.title}
               </p>
@@ -199,20 +237,21 @@ export function HomePage() {
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            {services.map((service) => {
-              const Icon = service.icon;
-              return (
-                <Card key={service.title} className="shadow-none">
-                  <CardHeader className="gap-4">
-                    <div className="flex size-11 items-center justify-center rounded-md border border-border bg-muted">
-                      <Icon className="size-5 text-luxury" aria-hidden="true" />
-                    </div>
-                    <CardTitle>{service.title}</CardTitle>
-                    <CardDescription>{service.description}</CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
+            {services.map((service) => (
+              <Card key={service.title} className="shadow-none">
+                <CardHeader className="gap-4">
+                  <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/15 via-luxury/5 to-transparent ring-1 ring-luxury/20">
+                    <Icon
+                      icon={service.icon}
+                      className="size-8 text-luxury"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <CardTitle>{service.title}</CardTitle>
+                  <CardDescription>{service.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -275,11 +314,110 @@ export function HomePage() {
         </div>
       </section>
 
+      <section
+        id="outcomes"
+        aria-labelledby="outcomes-heading"
+        className="border-y border-border bg-background"
+      >
+        <div className="container py-24">
+          <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <Badge variant="secondary" className="mb-4 rounded-md">
+                Selected outcomes
+              </Badge>
+              <h2
+                id="outcomes-heading"
+                className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl"
+              >
+                What clients walked away with.
+              </h2>
+              <p className="mt-4 text-base leading-7 text-muted-foreground">
+                Three recent engagements, anonymized at the client&apos;s request.
+                Metric is the proof. Quote is the texture.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {successStories.map((story) => (
+              <article
+                key={story.industryArchetype}
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card p-7 transition-colors hover:border-luxury/40"
+              >
+                <div
+                  className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${story.accent} opacity-60`}
+                  aria-hidden="true"
+                />
+                <div className="relative flex flex-1 flex-col gap-6">
+                  <div className="flex items-center gap-2">
+                    <Icon
+                      icon="solar:buildings-2-bold-duotone"
+                      className="size-5 text-luxury"
+                      aria-hidden="true"
+                    />
+                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                      {story.industryArchetype}
+                    </span>
+                  </div>
+                  <p className="text-sm font-medium text-foreground">
+                    {story.engagementType}
+                  </p>
+                  <div>
+                    <p className="font-serif text-5xl font-semibold leading-none tracking-tight text-foreground sm:text-6xl">
+                      {story.metricValue}
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {story.metricLabel}
+                    </p>
+                  </div>
+                  <blockquote className="border-l-2 border-luxury/40 pl-4 text-base leading-7 text-foreground">
+                    <Icon
+                      icon="solar:quote-up-square-bold-duotone"
+                      className="mb-2 size-5 text-luxury"
+                      aria-hidden="true"
+                    />
+                    {story.quote}
+                  </blockquote>
+                  <footer className="mt-auto flex flex-col gap-3">
+                    <div className="text-xs leading-5 text-muted-foreground">
+                      <span className="font-semibold text-foreground">{story.role}</span>
+                      <span className="mx-1.5 text-muted-foreground/60">·</span>
+                      {story.context}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {story.capabilities.map((capability) => (
+                        <Badge
+                          key={capability}
+                          variant="outline"
+                          className="rounded-md text-[11px]"
+                        >
+                          {capability}
+                        </Badge>
+                      ))}
+                    </div>
+                  </footer>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-8 flex items-center gap-2 text-xs text-muted-foreground">
+            <Icon
+              icon="solar:shield-check-bold-duotone"
+              className="size-4 text-luxury"
+              aria-hidden="true"
+            />
+            Client identities anonymized at their request. Metrics measured on
+            production systems we shipped or reworked end to end.
+          </p>
+        </div>
+      </section>
+
       <section className="container grid gap-16 py-24 lg:grid-cols-2">
         <CapabilityBlock
           eyebrow="AI and ML"
           title="AI products shipped to real users — not slideware."
-          icon={BrainCircuit}
+          icon="solar:cpu-bolt-bold-duotone"
           points={[
             "LLM-backed chat and reasoning flows live inside BookFlow and MeetFuture.",
             "Real-time voice and transcription stacks shipped in Meeting Assistant and AuraSpeak.",
@@ -289,7 +427,7 @@ export function HomePage() {
         <CapabilityBlock
           eyebrow="Product and infrastructure"
           title="SaaS, web apps, and the platform layer that actually runs them."
-          icon={Code2}
+          icon="solar:server-square-cloud-bold-duotone"
           points={[
             "Multi-tenant booking SaaS with auth, billing surfaces, and Prisma-backed data flows.",
             "Productivity and goal-tracking products with recurring jobs, calendars, and reminders.",
@@ -462,19 +600,19 @@ export function HomePage() {
 function CapabilityBlock({
   eyebrow,
   title,
-  icon: Icon,
+  icon,
   points,
 }: {
   eyebrow: string;
   title: string;
-  icon: LucideIcon;
+  icon: string;
   points: string[];
 }) {
   return (
     <div className="flex flex-col gap-7">
       <div className="flex items-center gap-3">
-        <div className="flex size-11 items-center justify-center rounded-md border border-border bg-muted">
-          <Icon className="size-5 text-luxury" aria-hidden="true" />
+        <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/15 via-luxury/5 to-transparent ring-1 ring-luxury/20">
+          <Icon icon={icon} className="size-8 text-luxury" aria-hidden="true" />
         </div>
         <Badge variant="outline" className="rounded-md">
           {eyebrow}
