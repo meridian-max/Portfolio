@@ -140,7 +140,7 @@ export default function ContactPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="flex flex-col gap-2 text-sm font-medium" htmlFor="name">
                   Name
@@ -148,7 +148,6 @@ export default function ContactPage() {
                     id="name"
                     name="name"
                     autoComplete="name"
-                    required
                     value={form.name}
                     onChange={(event) => updateField("name", event.target.value)}
                     placeholder="Your name"
@@ -161,7 +160,6 @@ export default function ContactPage() {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    required
                     value={form.email}
                     onChange={(event) => updateField("email", event.target.value)}
                     placeholder="you@example.com"
@@ -185,7 +183,6 @@ export default function ContactPage() {
                 <Textarea
                   id="message"
                   name="message"
-                  required
                   value={form.message}
                   onChange={(event) => updateField("message", event.target.value)}
                   placeholder="Tell us about the outcome, audience, constraints, timeline, and any public proof or links you already have."

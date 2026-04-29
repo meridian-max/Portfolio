@@ -2,11 +2,7 @@ import path from 'node:path'
 import { promises as fs } from 'node:fs'
 import matter from 'gray-matter'
 
-let blogPosts = null
-
 export async function getBlogPosts(tag) {
-  if (blogPosts) return filterPosts(blogPosts, tag)
-
   try {
     const contentDir = path.join(process.cwd(), 'src/content/blog')
     const files = await fs.readdir(contentDir)
@@ -17,7 +13,7 @@ export async function getBlogPosts(tag) {
           const filePath = path.join(contentDir, file)
           const source = await fs.readFile(filePath, 'utf8')
           const { data, content } = matter(source)
-          
+
           return {
             slug: file.replace('.mdx', ''),
             title: data.title,
@@ -31,8 +27,8 @@ export async function getBlogPosts(tag) {
         })
     )
 
-    blogPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    return filterPosts(blogPosts, tag)
+    const sorted = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    return filterPosts(sorted, tag)
   } catch (error) {
     console.error('Error loading blog posts:', error)
     return []

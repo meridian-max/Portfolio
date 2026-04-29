@@ -82,12 +82,17 @@ const proofItems = [
   },
 ];
 
-const highlightedEarlierWork = [
-  earlierWorkItems[0],
-  earlierWorkItems[4],
-  earlierWorkItems[2],
-  earlierWorkItems[5],
-];
+const highlightedEarlierWorkTitles = [
+  "Doctor ROBO",
+  "Hostly",
+  "School Website",
+  "AuraSpeak",
+] as const;
+
+const highlightedEarlierWork = highlightedEarlierWorkTitles.flatMap((title) => {
+  const match = earlierWorkItems.find((item) => item.title === title);
+  return match ? [match] : [];
+});
 
 const container = {
   hidden: { opacity: 0 },

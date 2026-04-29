@@ -100,8 +100,7 @@ export const siteConfig = {
       ],
     },
   ] satisfies TeamMember[],
-  attribution:
-    "Built from the byigitt/portfolio starter. Re-check the starter license before publishing, since the original README said MIT but no license file was detected.",
+  attribution: "Built with Next.js.",
 } as const;
 
 export type SiteNavItem = (typeof siteConfig.nav)[number];

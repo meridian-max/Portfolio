@@ -1,6 +1,8 @@
 import { chromium } from "@playwright/test";
 
 const baseUrl = process.env.SITE_URL ?? "http://localhost:3000";
+const expectedContactEmail =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "nishantnischal25@gmail.com";
 
 const pages = [
   "/",
@@ -136,8 +138,10 @@ try {
     .getByRole("link", { name: /email nishant nischal/i })
     .getAttribute("href");
 
-  if (primaryEmailHref !== "mailto:nishantnischal25@gmail.com") {
-    throw new Error("Contact page primary email CTA is not wired to Nishant's email.");
+  if (primaryEmailHref !== `mailto:${expectedContactEmail}`) {
+    throw new Error(
+      `Contact page primary email CTA is not wired to ${expectedContactEmail}.`,
+    );
   }
 
   const allLinks = await contact.locator("a").evaluateAll((anchors) =>
