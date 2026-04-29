@@ -138,18 +138,15 @@ export function HomePage() {
     <div className="overflow-hidden">
       <section className="relative isolate min-h-[86svh] border-b border-border">
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border))_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/50 via-background/75 to-background" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 opacity-20 dark:opacity-25">
-          <Image
-            src="/work/bookflow.png"
-            alt="Public product visual from the BookFlow booking SaaS site"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-top grayscale"
-          />
-          <div className="absolute inset-0 bg-background/70" />
-        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/85 to-background" />
+        <div
+          aria-hidden="true"
+          className="absolute -bottom-40 left-1/2 -z-10 h-[640px] w-[1100px] -translate-x-1/2 rounded-full bg-luxury/10 blur-3xl dark:bg-luxury/15"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -top-32 right-[-10%] -z-10 h-[420px] w-[420px] rounded-full bg-luxury/5 blur-3xl"
+        />
 
         <div className="container flex min-h-[86svh] flex-col justify-center py-24">
           <motion.div
