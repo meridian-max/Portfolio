@@ -51,6 +51,23 @@ const services = [
   },
 ];
 
+const stackLogos = [
+  { name: "Next.js", icon: "simple-icons:nextdotjs" },
+  { name: "TypeScript", icon: "simple-icons:typescript" },
+  { name: "React", icon: "simple-icons:react" },
+  { name: "Tailwind CSS", icon: "simple-icons:tailwindcss" },
+  { name: "Prisma", icon: "simple-icons:prisma" },
+  { name: "PostgreSQL", icon: "simple-icons:postgresql" },
+  { name: "Vercel", icon: "simple-icons:vercel" },
+  { name: "Docker", icon: "simple-icons:docker" },
+  { name: "AWS", icon: "simple-icons:amazonwebservices" },
+  { name: "OpenAI", icon: "simple-icons:openai" },
+  { name: "Anthropic", icon: "simple-icons:anthropic" },
+  { name: "Python", icon: "simple-icons:python" },
+  { name: "FastAPI", icon: "simple-icons:fastapi" },
+  { name: "Stripe", icon: "simple-icons:stripe" },
+];
+
 const successStories = [
   {
     industryArchetype: "Multi-location wellness chain",
@@ -216,6 +233,47 @@ export function HomePage() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{proof.detail}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="stack-heading"
+        className="border-b border-border bg-background"
+      >
+        <div className="container py-14">
+          <p
+            id="stack-heading"
+            className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+          >
+            The stack we ship in
+          </p>
+          <div
+            className="group relative mt-8 overflow-hidden"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+            }}
+          >
+            <div className="flex w-max animate-marquee gap-12 group-hover:[animation-play-state:paused]">
+              {[...stackLogos, ...stackLogos].map((logo, idx) => (
+                <div
+                  key={`${logo.name}-${idx}`}
+                  className="flex shrink-0 flex-col items-center gap-2 opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+                >
+                  <Icon
+                    icon={logo.icon}
+                    className="size-9 text-foreground"
+                    aria-label={logo.name}
+                  />
+                  <span className="text-[11px] font-medium text-muted-foreground">
+                    {logo.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
