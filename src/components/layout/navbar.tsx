@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Mail, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/ui/logo-mark";
 import {
   Sheet,
   SheetContent,
@@ -21,9 +22,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/88 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} home`}>
-          <span className="flex size-9 items-center justify-center rounded-md border border-border bg-foreground font-serif text-sm text-background">
-            MW
-          </span>
+          <LogoMark className="size-9" />
           <span className="hidden font-serif text-xl font-semibold tracking-normal sm:inline">
             {siteConfig.name}
           </span>

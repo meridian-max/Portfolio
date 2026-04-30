@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { LogoMark } from "@/components/ui/logo-mark";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,8 +10,15 @@ export function Footer() {
       <div className="container py-10">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.75fr_1.15fr]">
           <div className="max-w-md">
-            <Link href="/" className="font-serif text-2xl font-semibold tracking-normal">
-              {siteConfig.name}
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3"
+              aria-label={`${siteConfig.name} home`}
+            >
+              <LogoMark className="size-10" />
+              <span className="font-serif text-2xl font-semibold tracking-normal">
+                {siteConfig.name}
+              </span>
             </Link>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
               {siteConfig.tagline}
