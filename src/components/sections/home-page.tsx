@@ -2,7 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { Icon } from "@iconify/react";
 import {
   ArrowRight,
@@ -10,6 +19,7 @@ import {
   ExternalLink,
   Mail,
 } from "lucide-react";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -20,7 +30,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { siteConfig } from "@/config/site";
-import { featuredCaseStudies } from "@/data/case-studies";
+import { featuredCaseStudies, type CaseStudy } from "@/data/case-studies";
 import { earlierWorkItems } from "@/data/earlier-work";
 
 const services = [
@@ -106,30 +116,69 @@ const successStories = [
   },
 ];
 
-const process = [
-  "Start from the public product goal, the user flow, and the technical constraints.",
-  "Prototype the riskiest surface first, whether that is AI behavior, booking logic, or account flow.",
-  "Build the production path with auth, data, QA, and deployment in view.",
-  "Ship the smallest useful version, document the proof, and make the next iteration obvious.",
+const processPhases = [
+  {
+    title: "Align on the goal",
+    description:
+      "We start from the product goal, the user flow, and the technical constraints — and pin down what 'done' actually looks like before any code is written.",
+    deliverable: "Scope brief + risk map",
+  },
+  {
+    title: "Prototype the risk",
+    description:
+      "We build the riskiest surface first — AI behavior, booking logic, billing, or whatever else gates the rest of the build. No happy-path demos.",
+    deliverable: "Working prototype + go/no-go call",
+  },
+  {
+    title: "Build production",
+    description:
+      "Auth, data, payments, QA, and deployment built in parallel with the product surface — not bolted on after the demo lands.",
+    deliverable: "Deployable v1 with production infra",
+  },
+  {
+    title: "Ship and document",
+    description:
+      "We launch the smallest useful version, document the proof, and make the next iteration obvious to your team — handoff is built into the work.",
+    deliverable: "Live product + handoff docs",
+  },
 ];
 
-const proofItems = [
+type ProofItem =
+  | { kind: "text"; title: string; detail: string }
+  | { kind: "count"; count: number; prefix?: string; suffix: string; detail: string };
+
+const proofItems: ProofItem[] = [
   {
+    kind: "text",
     title: "Since 2023",
     detail: "Three years shipping product, AI, and growth surfaces for founders and operators.",
   },
   {
-    title: "5 production products",
+    kind: "count",
+    count: 5,
+    suffix: " production products",
     detail: "BookFlow, MeetFuture, Meeting Assistant, Goal Tracker, and GhostCollab — all live.",
   },
   {
-    title: "40+ open repos",
+    kind: "count",
+    count: 40,
+    suffix: "+ open repos",
     detail: "An open-source footprint that lets clients audit our craft before signing anything.",
   },
   {
+    kind: "text",
     title: "AI · SaaS · Infra",
     detail: "From multi-tenant booking SaaS to voice agents and self-hosted cloud platforms.",
   },
+];
+
+const industriesShippedFor = [
+  "AI startups",
+  "SaaS founders",
+  "Wellness & healthtech",
+  "Marketplaces",
+  "Productivity tools",
+  "Indie cloud / dev tools",
 ];
 
 const highlightedEarlierWork = earlierWorkItems;
@@ -211,7 +260,16 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export function HomePage() {
+type LatestPost = {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  image: string | null;
+  tags: string[];
+};
+
+export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
   return (
     <div className="overflow-hidden">
       <section className="relative isolate min-h-[86svh] border-b border-border">
@@ -281,15 +339,26 @@ export function HomePage() {
 
       <section aria-label="By the numbers" className="border-b border-border bg-muted/30">
         <div className="container grid gap-px py-px sm:grid-cols-2 lg:grid-cols-4">
-          {proofItems.map((proof) => (
-            <div key={proof.title} className="bg-background px-6 py-8 sm:py-10">
+          {proofItems.map((proof, idx) => (
+            <div
+              key={proof.kind === "text" ? proof.title : `count-${idx}`}
+              className="bg-background px-6 py-8 sm:py-10"
+            >
               <Icon
                 icon="solar:verified-check-bold-duotone"
                 className="mb-4 size-7 text-luxury"
                 aria-hidden="true"
               />
               <p className="font-serif text-3xl font-semibold leading-tight tracking-normal text-foreground sm:text-4xl">
-                {proof.title}
+                {proof.kind === "text" ? (
+                  proof.title
+                ) : (
+                  <Counter
+                    to={proof.count}
+                    prefix={proof.prefix}
+                    suffix={proof.suffix}
+                  />
+                )}
               </p>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{proof.detail}</p>
             </div>
@@ -393,38 +462,7 @@ export function HomePage() {
 
           <div className="grid gap-5 lg:grid-cols-3">
             {featuredCaseStudies.map((study) => (
-              <Link key={study.slug} href={`/work/${study.slug}`} className="group">
-                <Card className="h-full overflow-hidden shadow-none transition-colors hover:bg-accent/50">
-                  <div className="relative aspect-[16/10] border-b border-border bg-muted">
-                    <Image
-                      src={study.visual.src}
-                      alt={study.visual.alt}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, 100vw"
-                      className="object-cover grayscale transition duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
-                    />
-                  </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-3">
-                      <Badge variant="outline" className="rounded-md">
-                        {study.eyebrow}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {study.proofLevel === "public-repo" ? "Live + repo proof" : "Public site proof"}
-                      </span>
-                    </div>
-                    <CardTitle className="text-2xl">{study.title}</CardTitle>
-                    <CardDescription>{study.summary}</CardDescription>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {study.contributors.map((contributor) => (
-                        <Badge key={contributor} variant="secondary" className="rounded-md">
-                          {contributor}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardHeader>
-                </Card>
-              </Link>
+              <SpotlightCaseStudyCard key={study.slug} study={study} />
             ))}
           </div>
         </div>
@@ -555,7 +593,7 @@ export function HomePage() {
       <section id="process" className="border-y border-border bg-foreground text-background">
         <div className="container py-24">
           <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:h-fit">
               <Badge variant="secondary" className="w-fit rounded-md bg-background text-foreground">
                 Process
               </Badge>
@@ -566,15 +604,54 @@ export function HomePage() {
                 Three years of doing this has taught us where projects break — and the
                 rhythm that keeps them moving from first call to first paying user.
               </p>
+              <div className="mt-2 flex items-center gap-2 text-sm text-background/60">
+                <Icon
+                  icon="solar:arrow-right-down-bold-duotone"
+                  className="size-5 text-luxury"
+                  aria-hidden="true"
+                />
+                <span>Four phases, every engagement.</span>
+              </div>
             </div>
-            <ol className="grid gap-px overflow-hidden rounded-lg border border-background/15 bg-background/15">
-              {process.map((step, index) => (
-                <li key={step} className="grid gap-4 bg-foreground p-6 sm:grid-cols-[4rem_1fr]">
-                  <span className="font-serif text-4xl text-luxury">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <p className="text-lg leading-8 text-background/80">{step}</p>
-                </li>
+            <ol className="flex flex-col gap-5">
+              {processPhases.map((phase, index) => (
+                <motion.li
+                  key={phase.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative overflow-hidden rounded-2xl border border-background/15 bg-foreground/60 p-7 backdrop-blur-sm"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full bg-luxury/10 blur-3xl"
+                  />
+                  <div className="relative flex items-start gap-6">
+                    <span className="font-serif text-5xl font-light leading-none text-luxury sm:text-6xl">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex flex-col gap-3">
+                      <h3 className="font-serif text-2xl font-semibold tracking-normal text-background">
+                        {phase.title}
+                      </h3>
+                      <p className="text-base leading-7 text-background/70">
+                        {phase.description}
+                      </p>
+                      <div className="mt-2 flex items-start gap-2 border-t border-background/15 pt-3">
+                        <Icon
+                          icon="solar:check-circle-bold-duotone"
+                          className="mt-0.5 size-4 flex-none text-luxury"
+                          aria-hidden="true"
+                        />
+                        <span className="text-sm text-background/80">
+                          <span className="font-semibold text-background">Deliverable:</span>{" "}
+                          {phase.deliverable}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.li>
               ))}
             </ol>
           </div>
@@ -685,6 +762,105 @@ export function HomePage() {
                   </div>
                 </CardContent>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {latestPosts.length > 0 ? (
+        <section
+          id="notes"
+          aria-labelledby="notes-heading"
+          className="border-y border-border bg-background"
+        >
+          <div className="container py-24">
+            <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl">
+                <Badge variant="secondary" className="mb-4 rounded-md">
+                  From the studio
+                </Badge>
+                <h2
+                  id="notes-heading"
+                  className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl"
+                >
+                  What we&apos;ve been writing about.
+                </h2>
+                <p className="mt-4 text-base leading-7 text-muted-foreground">
+                  Notes from inside the products we ship — patterns that held up,
+                  decisions worth borrowing, and details that surprised us.
+                </p>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/blog">
+                  Read all notes
+                  <ArrowRight data-icon="inline-end" />
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2">
+              {latestPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-luxury/40"
+                >
+                  {post.image ? (
+                    <div className="relative aspect-[16/9] border-b border-border bg-muted">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover grayscale transition duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="flex flex-1 flex-col gap-4 p-7">
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      <time dateTime={post.date}>
+                        {format(new Date(post.date), "MMMM d, yyyy")}
+                      </time>
+                      {post.tags.slice(0, 2).map((tag) => (
+                        <Badge key={tag} variant="outline" className="rounded-md text-[11px]">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm leading-6 text-muted-foreground">
+                      {post.description}
+                    </p>
+                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                      Read the note
+                      <ArrowRight
+                        className="size-4 transition-transform group-hover:translate-x-1"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <section aria-label="Industries we ship for" className="border-b border-border bg-muted/25">
+        <div className="container flex flex-col items-center gap-5 py-12 sm:flex-row sm:items-center sm:justify-center sm:gap-3">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            We ship for
+          </span>
+          <div className="flex flex-wrap justify-center gap-2">
+            {industriesShippedFor.map((industry) => (
+              <span
+                key={industry}
+                className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground"
+              >
+                {industry}
+              </span>
             ))}
           </div>
         </div>
@@ -932,7 +1108,143 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      <StickyCTA />
     </div>
+  );
+}
+
+function StickyCTA() {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [400, 700], [0, 1]);
+  const y = useTransform(scrollY, [400, 700], [40, 0]);
+  const [nearBottom, setNearBottom] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const docHeight = document.documentElement.scrollHeight;
+      const distanceFromBottom = docHeight - window.scrollY - window.innerHeight;
+      setNearBottom(distanceFromBottom < 800);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {!nearBottom ? (
+        <motion.div
+          style={{ opacity, y }}
+          initial={{ opacity: 0, y: 40 }}
+          exit={{ opacity: 0, y: 40 }}
+          className="pointer-events-none fixed bottom-6 left-1/2 z-40 hidden -translate-x-1/2 md:block"
+        >
+          <div className="pointer-events-auto flex items-center gap-3 rounded-full border border-border bg-background/85 py-2 pl-5 pr-2 shadow-lg backdrop-blur-xl">
+            <span className="inline-flex items-center gap-2 text-sm text-foreground">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-luxury opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-luxury" />
+              </span>
+              Available for new projects
+            </span>
+            <Button asChild size="sm" className="rounded-full">
+              <Link href={siteConfig.contactHref}>
+                Start a project
+                <ArrowRight data-icon="inline-end" />
+              </Link>
+            </Button>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+function SpotlightCaseStudyCard({ study }: { study: CaseStudy }) {
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+
+  function handleMouseMove(event: ReactMouseEvent<HTMLAnchorElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
+  }
+
+  return (
+    <Link
+      href={`/work/${study.slug}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setPos(null)}
+      className="group relative block overflow-hidden rounded-xl"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: pos
+            ? `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, hsl(var(--luxury) / 0.18), transparent 45%)`
+            : "transparent",
+        }}
+      />
+      <Card className="h-full overflow-hidden shadow-none transition-colors group-hover:bg-accent/40">
+        <div className="relative aspect-[16/10] border-b border-border bg-muted">
+          <Image
+            src={study.visual.src}
+            alt={study.visual.alt}
+            fill
+            sizes="(min-width: 1024px) 33vw, 100vw"
+            className="object-cover grayscale transition duration-500 group-hover:scale-[1.02] group-hover:grayscale-0"
+          />
+        </div>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-3">
+            <Badge variant="outline" className="rounded-md">
+              {study.eyebrow}
+            </Badge>
+            <span className="text-xs text-muted-foreground">
+              {study.proofLevel === "public-repo" ? "Live + repo proof" : "Public site proof"}
+            </span>
+          </div>
+          <CardTitle className="text-2xl">{study.title}</CardTitle>
+          <CardDescription>{study.summary}</CardDescription>
+          <div className="flex flex-wrap gap-2 pt-2">
+            {study.contributors.map((contributor) => (
+              <Badge key={contributor} variant="secondary" className="rounded-md">
+                {contributor}
+              </Badge>
+            ))}
+          </div>
+        </CardHeader>
+      </Card>
+    </Link>
+  );
+}
+
+function Counter({
+  to,
+  prefix = "",
+  suffix = "",
+}: {
+  to: number;
+  prefix?: string;
+  suffix?: string;
+}) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const count = useMotionValue(0);
+  const display = useTransform(count, (latest) =>
+    `${prefix}${Math.round(latest).toLocaleString()}${suffix}`,
+  );
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(count, to, { duration: 1.6, ease: [0.22, 1, 0.36, 1] });
+    return () => controls.stop();
+  }, [count, inView, to]);
+
+  return (
+    <motion.span ref={ref} aria-label={`${prefix}${to}${suffix}`}>
+      {display}
+    </motion.span>
   );
 }
 
