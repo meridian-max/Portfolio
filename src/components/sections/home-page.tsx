@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   ExternalLink,
   Mail,
-  Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -134,6 +133,68 @@ const proofItems = [
 ];
 
 const highlightedEarlierWork = earlierWorkItems;
+
+const engagementModels = [
+  {
+    name: "Discovery Sprint",
+    duration: "1–2 weeks",
+    icon: "solar:magnifer-zoom-in-bold-duotone",
+    summary:
+      "Scoping, technical architecture, and a working prototype on the riskiest surface.",
+    bestFor: "Validating an AI or SaaS idea before committing to a full build.",
+    deliverables: ["Architecture doc", "Risk-first prototype", "Build plan + estimate"],
+  },
+  {
+    name: "Build Engagement",
+    duration: "4–12 weeks",
+    icon: "solar:rocket-2-bold-duotone",
+    summary:
+      "Design and ship a production v1 — auth, data, payments, AI, deployment, the whole loop.",
+    bestFor: "Founders with a defined scope and a launch date that cannot slip.",
+    deliverables: ["Production app", "Documented codebase", "Launch + handoff"],
+    featured: true,
+  },
+  {
+    name: "Embedded Partner",
+    duration: "Monthly retainer",
+    icon: "solar:users-group-rounded-bold-duotone",
+    summary:
+      "Ongoing product, AI, and platform work — we plug into your team and ship alongside.",
+    bestFor: "Post-launch iteration, model tuning, and scale-stage product evolution.",
+    deliverables: ["Reserved capacity", "Weekly delivery cadence", "Quarterly reviews"],
+  },
+];
+
+const faqs = [
+  {
+    q: "How fast can you start?",
+    a: "We typically have capacity within 2–4 weeks. Discovery Sprints can sometimes start sooner; full Build Engagements get scheduled into the next available slot.",
+  },
+  {
+    q: "Who actually does the work?",
+    a: "The three of us — Divyansh, Jigyasu, and Nishant — write every line of code. Nothing is offshored, white-labeled, or handed to a junior. You get senior craft on every commit.",
+  },
+  {
+    q: "How do you scope and price?",
+    a: "Fixed-fee per phase, agreed before any work starts. We never bill hourly mid-engagement. Project budgets are discussed on the intake call and scoped to outcomes — not to hours.",
+  },
+  {
+    q: "Who owns the code and IP?",
+    a: "You do, on final payment. Standard transfer is built into our master services agreement, and we sign the assignment paperwork your lawyers prefer.",
+  },
+  {
+    q: "Do you sign NDAs?",
+    a: "Yes — happy to sign before the intake call if you need to share specifics. We default to mutual NDAs but can countersign yours.",
+  },
+  {
+    q: "What's your AI / LLM stack?",
+    a: "Production-tested: OpenAI (GPT-4o, embeddings, Whisper), Anthropic (Claude family), Groq for low-latency inference, and homegrown evaluation pipelines. We pick the model layer per use case, not per fashion.",
+  },
+  {
+    q: "What if scope changes mid-project?",
+    a: "Scope changes get scoped as a mini-SOW with clear timeline and pricing impact. Nothing changes silently, and you decide whether to absorb, defer, or skip.",
+  },
+];
 
 const container = {
   hidden: { opacity: 0 },
@@ -629,23 +690,246 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container py-24">
-        <div className="flex flex-col items-start gap-8 border-y border-border py-16 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl">
-              Bring the outcome. We will keep the path clear.
+      <section
+        id="engage"
+        aria-labelledby="engage-heading"
+        className="border-y border-border bg-background"
+      >
+        <div className="container py-24">
+          <div className="mb-12 max-w-2xl">
+            <Badge variant="secondary" className="mb-4 rounded-md">
+              How we engage
+            </Badge>
+            <h2
+              id="engage-heading"
+              className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl"
+            >
+              Three ways to put us on the build.
             </h2>
-            <p className="mt-5 text-lg leading-8 text-muted-foreground">
-              Start with an email note. If there is a fit, the next step is a sharper
-              scope conversation around risks, proof, and the smallest useful launch plan.
+            <p className="mt-4 text-base leading-7 text-muted-foreground">
+              Pick the format that fits where you are. The first call clarifies
+              scope, risk, and the smallest useful launch plan — never a pitch deck.
             </p>
           </div>
-          <Button asChild size="lg">
-            <Link href={siteConfig.contactHref}>
-              <Rocket data-icon="inline-start" />
-              Email the team
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {engagementModels.map((model) => (
+              <article
+                key={model.name}
+                className={`relative flex flex-col gap-6 rounded-xl border p-7 transition-colors ${
+                  model.featured
+                    ? "border-luxury/40 bg-gradient-to-br from-luxury/8 via-luxury/3 to-transparent"
+                    : "border-border bg-card hover:border-luxury/30"
+                }`}
+              >
+                {model.featured ? (
+                  <span className="absolute right-5 top-5 rounded-full bg-luxury/15 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-luxury">
+                    Most chosen
+                  </span>
+                ) : null}
+                <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/15 via-luxury/5 to-transparent ring-1 ring-luxury/20">
+                  <Icon icon={model.icon} className="size-8 text-luxury" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
+                    {model.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-muted-foreground">
+                    {model.duration}
+                  </p>
+                </div>
+                <p className="text-sm leading-6 text-foreground/85">{model.summary}</p>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  <span className="font-semibold text-foreground">Best for:</span>{" "}
+                  {model.bestFor}
+                </p>
+                <ul className="mt-auto flex flex-col gap-2 border-t border-border/60 pt-5">
+                  {model.deliverables.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-sm leading-6 text-muted-foreground"
+                    >
+                      <Icon
+                        icon="solar:check-circle-bold-duotone"
+                        className="mt-0.5 size-4 flex-none text-luxury"
+                        aria-hidden="true"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-8 flex items-center gap-2 text-xs text-muted-foreground">
+            <Icon
+              icon="solar:info-circle-bold-duotone"
+              className="size-4 text-luxury"
+              aria-hidden="true"
+            />
+            Project budgets are discussed on the intake call and scoped to
+            outcomes — not to hours.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="faq"
+        aria-labelledby="faq-heading"
+        className="border-b border-border bg-muted/25"
+      >
+        <div className="container grid gap-14 py-24 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="max-w-md">
+            <Badge variant="secondary" className="mb-4 rounded-md">
+              FAQ
+            </Badge>
+            <h2
+              id="faq-heading"
+              className="font-serif text-4xl font-semibold tracking-normal sm:text-5xl"
+            >
+              The questions every founder asks before signing.
+            </h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground">
+              Direct answers to the seven we hear most often. Anything else,
+              just ask on the intake call.
+            </p>
+          </div>
+          <div className="flex flex-col divide-y divide-border border-y border-border">
+            {faqs.map((faq) => (
+              <details key={faq.q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-base font-medium text-foreground">
+                  <span>{faq.q}</span>
+                  <Icon
+                    icon="solar:alt-arrow-down-bold-duotone"
+                    className="mt-1 size-5 flex-none text-luxury transition-transform group-open:rotate-180"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <p className="mt-3 max-w-2xl pr-8 text-sm leading-6 text-muted-foreground">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="contact-cta"
+        aria-labelledby="contact-cta-heading"
+        className="border-b border-border bg-background"
+      >
+        <div className="container py-24">
+          <div className="mb-14 max-w-3xl">
+            <Badge variant="secondary" className="mb-4 rounded-md">
+              Start a conversation
+            </Badge>
+            <h2
+              id="contact-cta-heading"
+              className="font-serif text-4xl font-semibold tracking-normal sm:text-6xl"
+            >
+              Tell us what you&apos;re building.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-muted-foreground">
+              We read every inquiry within one business day. No funnels, no
+              chase emails — a real reply from one of the three of us.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            <Link
+              href={siteConfig.contactHref}
+              className="group flex flex-col gap-5 rounded-xl border border-border bg-card p-7 transition-colors hover:border-luxury/40"
+            >
+              <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/15 via-luxury/5 to-transparent ring-1 ring-luxury/20">
+                <Icon
+                  icon="solar:document-add-bold-duotone"
+                  className="size-8 text-luxury"
+                  aria-hidden="true"
+                />
+              </div>
+              <div>
+                <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
+                  Send a project brief
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  The fastest path. A short note with goal, constraints, and
+                  links opens a real conversation.
+                </p>
+              </div>
+              <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                Open the brief form
+                <ArrowRight
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </span>
             </Link>
-          </Button>
+
+            <Link
+              href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(
+                "[Intro call] Meridian Works",
+              )}`}
+              className="group relative flex flex-col gap-5 rounded-xl border border-luxury/40 bg-gradient-to-br from-luxury/10 via-luxury/3 to-transparent p-7 transition-colors hover:border-luxury/60"
+            >
+              <span className="absolute right-5 top-5 rounded-full bg-luxury/15 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-luxury">
+                Recommended
+              </span>
+              <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/20 via-luxury/8 to-transparent ring-1 ring-luxury/30">
+                <Icon
+                  icon="solar:phone-calling-rounded-bold-duotone"
+                  className="size-8 text-luxury"
+                  aria-hidden="true"
+                />
+              </div>
+              <div>
+                <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
+                  Book a 20-min intro call
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Walk us through the goal. We&apos;ll walk you through where
+                  the architecture and timeline land.
+                </p>
+              </div>
+              <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                Email to schedule
+                <ArrowRight
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </span>
+            </Link>
+
+            <Link
+              href={`mailto:${siteConfig.email}?subject=${encodeURIComponent("Hello")}`}
+              className="group flex flex-col gap-5 rounded-xl border border-border bg-card p-7 transition-colors hover:border-luxury/40"
+            >
+              <div className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-luxury/15 via-luxury/5 to-transparent ring-1 ring-luxury/20">
+                <Icon
+                  icon="solar:chat-round-line-bold-duotone"
+                  className="size-8 text-luxury"
+                  aria-hidden="true"
+                />
+              </div>
+              <div>
+                <h3 className="font-serif text-2xl font-semibold tracking-normal text-foreground">
+                  Just say hi
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Not ready to scope yet? Send a quick hello and what
+                  you&apos;re curious about. Low commitment.
+                </p>
+              </div>
+              <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                Drop us a line
+                <ArrowRight
+                  className="size-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
