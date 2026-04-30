@@ -78,15 +78,18 @@ export async function POST(req: Request) {
   }
 
   const client = new OpenAI({ apiKey });
-  const model = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
+  const model = (process.env.OPENAI_MODEL ?? "gpt-5-nano").trim();
+  const isReasoningModel = /^(gpt-5|o1|o3|o4)/.test(model);
 
   let completion: Awaited<ReturnType<typeof client.chat.completions.create>>;
   try {
     completion = await client.chat.completions.create({
       model,
       stream: true,
-      max_tokens: 400,
-      temperature: 0.4,
+      max_completion_tokens: isReasoningModel ? 800 : 400,
+      ...(isReasoningModel
+        ? { reasoning_effort: "minimal" as const }
+        : { temperature: 0.4 }),
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     });
   } catch (error) {
