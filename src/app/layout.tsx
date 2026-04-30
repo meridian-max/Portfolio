@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { siteConfig } from "@/config/site";
 
 const sans = Plus_Jakarta_Sans({
@@ -83,6 +84,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <ChatWidget />
         </ThemeProvider>
       </body>
     </html>
