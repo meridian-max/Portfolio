@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <div>
-      <section className="studio-section">
+      <section className="studio-section section-wash section-wash-violet">
         <div className="container relative py-16 text-center">
-          <div aria-hidden="true" className="dot-matrix absolute left-4 top-12 h-24 w-24 opacity-50" />
+          <div aria-hidden="true" className="dot-matrix animate-drift absolute left-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">Selected work</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
             Portfolio
@@ -29,6 +29,7 @@ export default function WorkPage() {
             Live products, public proof, and open-source systems from a small product engineering studio.
             Filter by capability, then open any project for problem, solution, role, stack, and source links.
           </p>
+          <p className="marginalia mt-4">↳ public, inspectable, in production</p>
         </div>
       </section>
 

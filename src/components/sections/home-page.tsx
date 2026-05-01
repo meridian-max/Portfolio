@@ -125,13 +125,32 @@ type LatestPost = {
 
 const container = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+  show: { opacity: 1, transition: { staggerChildren: 0.11, delayChildren: 0.08 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
 };
+
+const railItem = {
+  hidden: { opacity: 0, x: 18 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+const statusRail = [
+  { label: "Now", value: "Booking SaaS · v3" },
+  { label: "Next", value: "Voice agent · iter 2" },
+  { label: "Shipped", value: "5 production products" },
+];
 
 export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
   void latestPosts;
@@ -140,7 +159,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
     <div className="overflow-hidden">
       <section className="studio-section">
         <div className="container relative grid items-center gap-10 py-14 lg:grid-cols-[0.86fr_1.14fr] lg:py-16">
-          <div aria-hidden="true" className="dot-matrix absolute left-0 top-24 h-28 w-28 opacity-50" />
+          <div aria-hidden="true" className="dot-matrix animate-drift absolute left-0 top-24 h-28 w-28 opacity-50" />
           <motion.div
             variants={container}
             initial="hidden"
@@ -152,12 +171,15 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             </motion.p>
             <motion.h1
               variants={item}
-              className="outline-heading mt-6 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-8xl"
+              className="outline-heading animate-mask-reveal mt-6 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-8xl"
             >
               {siteConfig.name}
             </motion.h1>
             <motion.p variants={item} className="handwritten mt-5 text-foreground">
               A product engineering studio
+              <span className="ml-3 inline-block align-middle text-base text-[hsl(var(--luxury))]">
+                ↳ since 2023
+              </span>
             </motion.p>
             <motion.p
               variants={item}
@@ -182,7 +204,32 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             </motion.div>
           </motion.div>
 
-          <ProductOrbit />
+          <div className="relative">
+            <ProductOrbit />
+            <motion.aside
+              variants={container}
+              initial="hidden"
+              animate="show"
+              aria-label="Studio status"
+              className="pointer-events-none absolute -right-4 top-2 hidden flex-col gap-3 lg:flex"
+            >
+              {statusRail.map((entry) => (
+                <motion.div
+                  key={entry.label}
+                  variants={railItem}
+                  className="pointer-events-auto flex items-center gap-3"
+                >
+                  <span className="font-accent text-2xl font-bold text-[hsl(var(--luxury))]">
+                    {entry.label}
+                  </span>
+                  <span className="h-px w-6 bg-foreground/40" aria-hidden="true" />
+                  <span className="rounded-full border-2 border-border bg-card px-3 py-1 text-[11px] font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)]">
+                    {entry.value}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.aside>
+          </div>
         </div>
       </section>
 
@@ -237,13 +284,14 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
-      <section id="services" className="studio-section">
+      <section id="services" className="studio-section section-wash section-wash-amber">
         <div className="container py-20">
           <SectionHeader
             kicker="What we do"
             title="Our Services"
             subtitle="One team for the surface, the system, and the ship date. Bring the outcome, and we build the product path around it."
           />
+          <p className="marginalia mt-3">↳ four lanes, one delivery rhythm</p>
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {services.map((service) => (
               <Card key={service.title} className="h-full shadow-[8px_8px_0_hsl(var(--foreground)/0.12)]">
@@ -263,7 +311,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
-      <section className="studio-section">
+      <section className="studio-section section-wash section-wash-violet">
         <div className="container py-20">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <SectionHeader
@@ -387,13 +435,14 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
-      <section className="studio-section">
+      <section className="studio-section section-wash section-wash-rose">
         <div className="container py-20">
           <SectionHeader
             kicker="Testimonials"
             title="What clients walk away with."
             subtitle="Public proof where we have it, anonymized outcome proof where the client relationship needs privacy."
           />
+          <p className="marginalia mt-3">↳ what they say afterwards</p>
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {outcomeProof.map((proof) => (
               <Card key={proof.title} className="h-full">
@@ -525,14 +574,14 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       href={`/work/${study.slug}`}
       className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <Card className="h-full overflow-hidden transition-transform group-hover:-translate-y-1">
+      <Card className="h-full overflow-hidden">
         <div className="relative aspect-[16/10] border-b-2 border-border bg-muted">
           <Image
             src={study.visual.src}
             alt={study.visual.alt}
             fill
             sizes="(min-width: 1024px) 33vw, 100vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="image-duotone object-cover transition duration-500 group-hover:scale-[1.03]"
           />
         </div>
         <CardHeader>

@@ -62,9 +62,9 @@ export default function ContactPage() {
 
   return (
     <div>
-      <section className="studio-section">
+      <section className="studio-section section-wash section-wash-amber">
         <div className="container relative py-16 text-center">
-          <div aria-hidden="true" className="dot-matrix absolute right-4 top-12 h-24 w-24 opacity-50" />
+          <div aria-hidden="true" className="dot-matrix animate-drift absolute right-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">Let&apos;s talk about ideas</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
             Contact Us
@@ -73,6 +73,7 @@ export default function ContactPage() {
             Send the outcome, constraints, timeline, and links you already have.
             We reply to every project note within two business days.
           </p>
+          <p className="marginalia mt-4">↳ replies within two business days</p>
         </div>
       </section>
 

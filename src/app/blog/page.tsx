@@ -23,9 +23,9 @@ export default async function BlogPage() {
 
   return (
     <div>
-      <section className="studio-section">
+      <section className="studio-section section-wash section-wash-emerald">
         <div className="container relative py-16 text-center">
-          <div aria-hidden="true" className="dot-matrix absolute left-4 top-12 h-24 w-24 opacity-50" />
+          <div aria-hidden="true" className="dot-matrix animate-drift absolute left-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">From the studio</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
             Notes
@@ -34,6 +34,7 @@ export default async function BlogPage() {
             Written from the products themselves: what worked, what did not, and the patterns
             that held up while shipping for founders.
           </p>
+          <p className="marginalia mt-4">↳ field notes, not opinion pieces</p>
         </div>
       </section>
 
@@ -41,7 +42,7 @@ export default async function BlogPage() {
         <div className="container grid gap-6 py-16 md:grid-cols-2">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-              <Card className="h-full overflow-hidden transition-transform group-hover:-translate-y-1">
+              <Card className="h-full overflow-hidden">
                 <div className="relative aspect-[16/9] border-b-2 border-border bg-muted">
                   {post.image ? (
                     <Image
@@ -49,7 +50,7 @@ export default async function BlogPage() {
                       alt={post.title}
                       fill
                       sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      className="image-duotone object-cover transition duration-500 group-hover:scale-[1.03]"
                     />
                   ) : (
                     <BlogPlaceholder title={post.title} />
