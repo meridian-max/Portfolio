@@ -87,26 +87,29 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       <Script id="blog-structured-data" type="application/ld+json">
         {JSON.stringify(structuredData)}
       </Script>
-      <article className="container py-16">
+      <article className="studio-section">
+        <div className="container py-16">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8">
-            <div className="relative mb-8 aspect-video overflow-hidden rounded-lg border border-border bg-muted">
+            <div className="studio-panel mb-8 overflow-hidden rounded-[2rem] bg-muted p-3">
+              <div className="relative aspect-video overflow-hidden rounded-[1.35rem] border-2 border-border">
               {post.image ? (
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover grayscale"
+                  className="object-cover"
                   priority
                 />
               ) : (
                 <BlogPlaceholder title={post.title} />
               )}
+              </div>
             </div>
-            <h1 className="mb-5 font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
+            <h1 className="mb-5 text-5xl font-black uppercase leading-none sm:text-6xl">
               {post.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 font-bold">
               <time dateTime={post.date} className="text-muted-foreground">
                 {format(new Date(post.date), "MMMM dd, yyyy")}
               </time>
@@ -119,9 +122,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
               </div>
             </div>
           </div>
-          <div className="prose prose-gray max-w-none dark:prose-invert">
+          <div className="prose prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-a:font-black prose-a:text-foreground prose-a:underline dark:prose-invert">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
+        </div>
         </div>
       </article>
     </>

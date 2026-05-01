@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Plus_Jakarta_Sans } from "next/font/google";
+import { Caveat, Jost } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
@@ -7,17 +7,18 @@ import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { siteConfig } from "@/config/site";
 
-const sans = Plus_Jakarta_Sans({
+const sans = Jost({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const serif = Libre_Baskerville({
+const accent = Caveat({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "700"],
-  variable: "--font-serif",
+  weight: ["500", "600", "700"],
+  variable: "--font-accent",
 });
 
 export const metadata: Metadata = {
@@ -72,7 +73,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${serif.variable} font-sans antialiased`}>
+      <body className={`${sans.variable} ${accent.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { siteConfig } from "@/config/site";
 
 type FormState = {
@@ -62,23 +61,25 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="container py-20">
-      <div className="mb-14 max-w-3xl">
-        <Badge variant="secondary" className="mb-4 rounded-md">
-          Contact
-        </Badge>
-        <h1 className="font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
-          Tell us what you are trying to ship.
-        </h1>
-        <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          We reply to every project note within two business days. Send the outcome,
-          the constraints, and any links you already have — we will take it from there.
-        </p>
-      </div>
+    <div>
+      <section className="studio-section">
+        <div className="container relative py-16 text-center">
+          <div aria-hidden="true" className="dot-matrix absolute right-4 top-12 h-24 w-24 opacity-50" />
+          <p className="section-kicker">Let&apos;s talk about ideas</p>
+          <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
+            Contact Us
+          </h1>
+          <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">
+            Send the outcome, constraints, timeline, and links you already have.
+            We reply to every project note within two business days.
+          </p>
+        </div>
+      </section>
 
-      <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+      <div className="container py-16">
+        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="flex flex-col gap-6">
-          <Card className="shadow-none">
+          <Card>
             <CardHeader>
               <CardTitle>Email the studio</CardTitle>
               <CardDescription>
@@ -99,7 +100,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-none">
+          <Card>
             <CardHeader>
               <CardTitle>Team</CardTitle>
               <CardDescription>
@@ -109,7 +110,7 @@ export default function ContactPage() {
             <CardContent className="flex flex-col gap-4">
               {siteConfig.team.map((member) => (
                 <div key={member.name}>
-                  <p className="text-sm font-medium text-foreground">{member.name}</p>
+                  <p className="text-sm font-black text-foreground">{member.name}</p>
                   <div className="mt-2 flex flex-wrap gap-3">
                     {member.links.map((link) => (
                       <Link
@@ -132,7 +133,7 @@ export default function ContactPage() {
           </Card>
         </div>
 
-        <Card className="shadow-none">
+        <Card>
           <CardHeader>
             <CardTitle>Project brief</CardTitle>
             <CardDescription>
@@ -203,6 +204,7 @@ export default function ContactPage() {
             </form>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   );

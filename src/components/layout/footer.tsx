@@ -6,9 +6,9 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-muted/25">
-      <div className="container py-10">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.75fr_1.15fr]">
+    <footer className="border-t-2 border-border bg-background">
+      <div className="container py-12">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.7fr_1.15fr]">
           <div className="max-w-md">
             <Link
               href="/"
@@ -16,20 +16,33 @@ export function Footer() {
               aria-label={`${siteConfig.name} home`}
             >
               <LogoMark className="size-10" />
-              <span className="font-serif text-2xl font-semibold tracking-normal">
+              <span className="text-2xl font-black text-[hsl(var(--luxury))]">
                 {siteConfig.name}
               </span>
             </Link>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
               {siteConfig.tagline}
             </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {siteConfig.socialLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                  className="rounded-full border-2 border-border bg-card px-3 py-1 text-xs font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] hover:bg-accent"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold">Navigate</h2>
+            <h2 className="section-kicker">Navigate</h2>
             <nav className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
               {siteConfig.nav.map((item) => (
-                <Link key={item.href} href={item.href} className="hover:text-foreground">
+                <Link key={item.href} href={item.href} className="font-bold hover:text-foreground">
                   {item.label}
                 </Link>
               ))}
@@ -37,11 +50,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold">Team Links</h2>
+            <h2 className="section-kicker">Team Links</h2>
             <div className="mt-4 grid gap-4">
               {siteConfig.team.map((member) => (
                 <div key={member.name}>
-                  <p className="text-sm font-medium text-foreground">{member.name}</p>
+                  <p className="text-sm font-black text-foreground">{member.name}</p>
                   <p className="mt-1 text-xs text-muted-foreground">{member.role}</p>
                   <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
                     {member.links.map((link) => (
@@ -62,7 +75,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t-2 border-border pt-6 text-xs font-bold uppercase tracking-[0.04em] text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>
             Copyright {currentYear} {siteConfig.legalName}. All rights reserved.
           </p>

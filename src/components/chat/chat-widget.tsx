@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Icon } from "@iconify/react";
-import { Send, X } from "lucide-react";
+import { Send } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -112,8 +112,8 @@ export function ChatWidget() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open chat with the studio AI"
-        className="fixed bottom-6 right-6 z-40 flex size-14 items-center justify-center rounded-full bg-foreground text-background shadow-xl ring-1 ring-luxury/30 transition hover:scale-105 hover:shadow-2xl"
+        aria-label="Open studio chat"
+        className="fixed bottom-6 right-6 z-40 flex size-14 items-center justify-center rounded-full border-2 border-border bg-secondary text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.2)] transition hover:-translate-y-0.5"
       >
         <Icon
           icon="solar:chat-round-dots-bold-duotone"
@@ -129,33 +129,23 @@ export function ChatWidget() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="right"
-          className="flex w-full flex-col gap-0 p-0 sm:max-w-md"
+          className="flex w-full flex-col gap-0 border-l-2 border-border bg-background p-0 sm:max-w-md"
         >
-          <SheetHeader className="border-b border-border bg-muted/30 px-6 py-5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="flex size-10 items-center justify-center rounded-full bg-foreground text-background">
-                  <Icon
-                    icon="solar:cpu-bolt-bold-duotone"
-                    className="size-5 text-luxury"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div>
-                  <SheetTitle className="font-serif text-lg">Ask the studio</SheetTitle>
-                  <SheetDescription className="text-xs">
-                    AI concierge · scoped to {siteConfig.name}
-                  </SheetDescription>
-                </div>
+          <SheetHeader className="border-b-2 border-border bg-secondary px-6 py-5">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-full border-2 border-border bg-background text-foreground">
+                <Icon
+                  icon="solar:cpu-bolt-bold-duotone"
+                  className="size-5 text-luxury"
+                  aria-hidden="true"
+                />
               </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close chat"
-                className="flex size-8 items-center justify-center rounded-full text-muted-foreground transition hover:bg-accent hover:text-foreground"
-              >
-                <X className="size-4" aria-hidden="true" />
-              </button>
+              <div>
+                <SheetTitle className="text-lg font-black uppercase">Ask the studio</SheetTitle>
+                <SheetDescription className="text-xs font-bold">
+                  AI concierge · scoped to {siteConfig.name}
+                </SheetDescription>
+              </div>
             </div>
           </SheetHeader>
 
@@ -167,10 +157,10 @@ export function ChatWidget() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-6 ${
+                    className={`max-w-[85%] whitespace-pre-wrap rounded-2xl border-2 border-border px-4 py-2.5 text-sm leading-6 ${
                       msg.role === "user"
-                        ? "bg-foreground text-background"
-                        : "bg-muted text-foreground"
+                        ? "bg-secondary text-foreground shadow-[4px_4px_0_hsl(var(--foreground)/0.14)]"
+                        : "bg-card text-foreground"
                     }`}
                   >
                     {msg.content || (streaming ? "…" : "")}
@@ -189,7 +179,7 @@ export function ChatWidget() {
                     key={prompt}
                     type="button"
                     onClick={() => void send(prompt)}
-                    className="rounded-lg border border-border bg-background px-3 py-2 text-left text-sm text-foreground transition hover:border-luxury/40 hover:bg-accent"
+                    className="rounded-xl border-2 border-border bg-card px-3 py-2 text-left text-sm font-bold text-foreground transition hover:bg-accent"
                   >
                     {prompt}
                   </button>
@@ -198,7 +188,7 @@ export function ChatWidget() {
             ) : null}
 
             {error ? (
-              <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive">
+              <p className="mt-4 rounded-xl border-2 border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive">
                 {error}
               </p>
             ) : null}
@@ -206,9 +196,9 @@ export function ChatWidget() {
 
           <form
             onSubmit={handleSubmit}
-            className="border-t border-border bg-background px-4 py-4"
+            className="border-t-2 border-border bg-background px-4 py-4"
           >
-            <div className="flex items-end gap-2 rounded-2xl border border-border bg-muted/30 px-3 py-2 focus-within:border-luxury/40">
+            <div className="flex items-end gap-2 rounded-2xl border-2 border-border bg-card px-3 py-2 shadow-[4px_4px_0_hsl(var(--foreground)/0.1)] focus-within:border-luxury">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

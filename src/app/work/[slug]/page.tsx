@@ -77,13 +77,14 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
       <Script id={`case-study-${study.slug}`} type="application/ld+json">
         {JSON.stringify(structuredData)}
       </Script>
-      <article className="container py-16">
-        <Button asChild variant="ghost" className="mb-10 px-0">
-          <Link href="/work">
-            <ArrowLeft data-icon="inline-start" />
-            Back to work
-          </Link>
-        </Button>
+      <article className="studio-section">
+        <div className="container py-16">
+          <Button asChild variant="link" className="mb-10 px-0">
+            <Link href="/work">
+              <ArrowLeft data-icon="inline-start" />
+              Back to work
+            </Link>
+          </Button>
 
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div className="flex flex-col gap-8">
@@ -96,7 +97,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
                   {study.proofLevel === "public-repo" ? "Live + repo proof" : "Public site proof"}
                 </Badge>
               </div>
-              <h1 className="font-serif text-5xl font-semibold tracking-normal sm:text-6xl">
+              <h1 className="outline-heading text-6xl font-black uppercase leading-none sm:text-7xl">
                 {study.title}
               </h1>
               <p className="mt-6 text-xl leading-9 text-muted-foreground">
@@ -123,15 +124,17 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="relative aspect-[16/11] overflow-hidden rounded-lg border border-border bg-muted">
-              <Image
-                src={study.visual.src}
-                alt={study.visual.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
+            <div className="studio-panel rounded-[2rem] bg-muted p-3">
+              <div className="relative aspect-[16/11] overflow-hidden rounded-[1.35rem] border-2 border-border">
+                <Image
+                  src={study.visual.src}
+                  alt={study.visual.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
 
             <Card className="shadow-none">
@@ -212,7 +215,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
               <Card className="shadow-none">
                 <CardContent className="p-6">
                   <blockquote className="flex flex-col gap-4">
-                    <p className="font-serif text-2xl leading-9">
+                    <p className="font-accent text-4xl font-bold leading-none">
                       &ldquo;{study.quote.text}&rdquo;
                     </p>
                     <footer className="text-sm text-muted-foreground">
@@ -225,9 +228,9 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start gap-6 border-t border-border pt-10 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col items-start gap-6 border-t-2 border-border pt-10 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="font-serif text-3xl font-semibold tracking-normal">
+            <h2 className="text-3xl font-black uppercase leading-none">
               Want this shape of project?
             </h2>
             <p className="mt-3 text-muted-foreground">
@@ -240,6 +243,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
               Start the contact note
             </Link>
           </Button>
+        </div>
         </div>
       </article>
     </>

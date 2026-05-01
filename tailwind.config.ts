@@ -61,7 +61,8 @@ export default {
   		},
 			fontFamily: {
 				sans: ['var(--font-sans)', 'sans-serif'],
-				serif: ['var(--font-serif)', 'serif'],
+				serif: ['var(--font-sans)', 'sans-serif'],
+				accent: ['var(--font-accent)', 'cursive'],
 			},
 			typography: {
         DEFAULT: {

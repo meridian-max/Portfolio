@@ -15,27 +15,24 @@ export function LogoMark({ className, ariaLabel = "Meridian Works" }: LogoMarkPr
       aria-label={ariaLabel}
       className={cn("size-9", className)}
     >
+      <rect x="6" y="6" width="52" height="52" rx="10" className="fill-background" />
       <rect
-        x="0"
-        y="0"
-        width="64"
-        height="64"
-        rx="14"
-        className="fill-foreground"
+        x="6"
+        y="6"
+        width="52"
+        height="52"
+        rx="10"
+        strokeWidth="4"
+        className="stroke-[hsl(var(--luxury))]"
       />
       <path
         d="M16 46 L16 18 L32 34 L48 18 L48 46"
         strokeWidth="4"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-background"
+        className="stroke-foreground"
       />
-      <circle
-        cx="51"
-        cy="15"
-        r="3.2"
-        className="fill-[hsl(var(--luxury))]"
-      />
+      <circle cx="51" cy="15" r="4" className="fill-[hsl(var(--luxury))]" />
     </svg>
   );
 }

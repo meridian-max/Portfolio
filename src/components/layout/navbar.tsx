@@ -19,11 +19,11 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/88 backdrop-blur-xl">
-      <div className="container flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b-2 border-border bg-background/90 backdrop-blur-xl">
+      <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} home`}>
-          <LogoMark className="size-9" />
-          <span className="hidden font-serif text-xl font-semibold tracking-normal sm:inline">
+          <LogoMark className="size-11" />
+          <span className="text-2xl font-black text-[hsl(var(--luxury))] sm:inline">
             {siteConfig.name}
           </span>
         </Link>
@@ -33,7 +33,7 @@ export function Navbar() {
             <Link
               key={route.href}
               href={route.href}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              className="rounded-full px-4 py-2 text-sm font-bold text-foreground transition-colors hover:bg-accent"
             >
               {route.label}
             </Link>
@@ -63,9 +63,11 @@ export function Navbar() {
             </Button>
             <SheetContent side="right">
               <SheetHeader>
-                <SheetTitle>{siteConfig.name}</SheetTitle>
+                <SheetTitle className="text-2xl font-black text-[hsl(var(--luxury))]">
+                  {siteConfig.name}
+                </SheetTitle>
                 <SheetDescription>
-                  Independent product studio — navigation menu.
+                  Independent product studio navigation.
                 </SheetDescription>
               </SheetHeader>
               <nav className="mt-8 flex flex-col gap-2" aria-label="Mobile navigation">
@@ -73,7 +75,7 @@ export function Navbar() {
                   <Link
                     key={route.href}
                     href={route.href}
-                    className="rounded-md px-3 py-3 text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    className="rounded-xl border-2 border-transparent px-3 py-3 text-base font-bold text-foreground transition-colors hover:border-border hover:bg-accent"
                     onClick={() => setIsOpen(false)}
                   >
                     {route.label}
