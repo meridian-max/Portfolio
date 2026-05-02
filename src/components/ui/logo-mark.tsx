@@ -8,43 +8,30 @@ type LogoMarkProps = {
 export function LogoMark({ className, ariaLabel = "GreedUp logo" }: LogoMarkProps) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 180 150"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       role="img"
       aria-label={ariaLabel}
       className={cn("size-9", className)}
     >
-      <rect x="9" y="11" width="48" height="48" rx="11" className="fill-foreground opacity-20" />
-      <rect
-        x="6"
-        y="6"
-        width="50"
-        height="50"
-        rx="11"
-        strokeWidth="3.5"
-        className="fill-background stroke-foreground"
-      />
       <path
-        d="M44 21a17 17 0 1 0 2 21H34"
-        strokeWidth="4.25"
+        d="M153 23H94C55 23 27 52 27 90c0 40 31 70 72 70 26 0 49-12 63-31"
+        strokeWidth="20"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-foreground"
+        className="stroke-[#1d1b26]"
       />
       <path
-        d="M34 42l16-16m0 0v13m0-13H37"
-        strokeWidth="4.25"
+        d="M27 113c22 34 78 47 124 14"
+        strokeWidth="8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-[hsl(var(--luxury))]"
+        className="stroke-[#1d1b26]"
       />
-      <circle
-        cx="50"
-        cy="15"
-        r="5"
-        strokeWidth="3"
-        className="fill-[hsl(var(--luxury))] stroke-foreground"
+      <path
+        d="M101 65h58c3.4 0 6 2.6 6 6v58h-26V99l-47 47H56l66-66h-21Z"
+        className="fill-[#9900ff]"
       />
     </svg>
   );

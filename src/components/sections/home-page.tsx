@@ -236,7 +236,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
               initial="hidden"
               animate="show"
               aria-label="Studio status"
-              className="pointer-events-none absolute -right-4 top-2 hidden flex-col gap-3 lg:flex"
+              className="pointer-events-none absolute -right-4 top-2 hidden flex-col gap-3 2xl:flex"
             >
               {statusRail.map((entry) => (
                 <motion.div
@@ -258,31 +258,31 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
-      {/* Anti-positioning band — sharpest weapon, single line, declarative */}
+      {/* Anti-positioning band — sharpest weapon, declarative */}
       <section
         aria-label="What we don't do"
         className="border-b-2 border-border bg-foreground text-background"
       >
         <div className="container py-10">
-          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-center">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-4 text-center sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-7 sm:gap-y-3">
             {antiPositioning.map((item, idx) => (
-              <span
+              <li
                 key={item}
-                className="flex items-baseline gap-2 text-sm font-black uppercase tracking-[0.08em] sm:text-base"
+                className="flex items-baseline justify-center gap-2 text-sm font-black uppercase tracking-[0.08em] sm:text-base"
               >
                 <span className="text-2xl font-black text-[hsl(var(--luxury))] sm:text-3xl">
                   NO
                 </span>
                 <span>{item}</span>
                 {idx < antiPositioning.length - 1 ? (
-                  <span aria-hidden="true" className="ml-3 text-background/40">
+                  <span aria-hidden="true" className="ml-3 hidden text-background/40 sm:inline">
                     ·
                   </span>
                 ) : null}
-              </span>
+              </li>
             ))}
-          </div>
-          <p className="font-accent mt-4 text-center text-2xl font-bold leading-none text-background/80 sm:text-3xl">
+          </ul>
+          <p className="font-accent mt-5 text-center text-xl font-bold leading-tight text-background/80 sm:text-3xl sm:leading-none">
             ↳ just a small team of senior builders shipping the work.
           </p>
         </div>
@@ -490,7 +490,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             aria-hidden="true"
             className="dot-matrix animate-drift absolute left-1/2 top-6 h-16 w-16 -translate-x-1/2 opacity-30"
           />
-          <p className="font-accent mx-auto max-w-4xl text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+          <p className="font-accent mx-auto max-w-4xl text-3xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
             We measure builders by what&apos;s running in production —
             <span className="text-[hsl(var(--luxury))]"> not what&apos;s in a deck.</span>
           </p>
@@ -517,7 +517,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                     <p className="font-accent text-xl font-bold leading-none text-foreground/60">
                       № {String(idx + 1).padStart(2, "0")}
                     </p>
-                    <p className="outline-heading mt-3 text-7xl font-black uppercase leading-[0.85] sm:text-8xl lg:text-[7rem]">
+                    <p className="outline-heading mt-3 text-5xl font-black uppercase leading-[0.85] sm:text-7xl lg:text-[7rem]">
                       {proof.metric}
                     </p>
                     <p className="mt-4 text-sm font-black uppercase tracking-[0.1em] text-foreground/70">

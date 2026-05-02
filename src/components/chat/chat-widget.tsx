@@ -123,10 +123,10 @@ export function ChatWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open studio intake desk"
-          className="group relative inline-flex items-center gap-2.5 rounded-2xl border-2 border-border bg-background px-4 py-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group relative inline-flex items-center gap-2.5 rounded-2xl border-2 border-border bg-background p-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-4"
         >
           <LogoMark className="size-6" />
-          <span className="leading-none">Ask the studio</span>
+          <span className="hidden leading-none sm:inline">Ask the studio</span>
           <span className="relative ml-0.5 flex size-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-75" />
             <span className="relative inline-flex size-2.5 rounded-full bg-[hsl(var(--luxury))]" />

@@ -22,9 +22,10 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b-2 border-border bg-background/90 backdrop-blur-xl">
       <div className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} home`}>
-          <LogoMark className="size-11" />
-          <span className="text-2xl font-black text-[hsl(var(--luxury))] sm:inline">
-            {siteConfig.name}
+          <LogoMark className="h-11 w-[3.3rem]" />
+          <span className="flex items-baseline text-3xl font-semibold leading-none tracking-tight sm:inline-flex">
+            <span className="text-foreground">Greed</span>
+            <span className="text-[#9900ff]">Up</span>
           </span>
         </Link>
 
