@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Icon } from "@iconify/react";
-import { Send } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -10,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/ui/logo-mark";
 import { siteConfig } from "@/config/site";
 
 type ChatMessage = {
@@ -20,16 +19,17 @@ type ChatMessage = {
 };
 
 const SUGGESTED_PROMPTS = [
-  "What kinds of projects do you take on?",
-  "How long does a typical Build Engagement take?",
-  "Who would I work with day-to-day?",
+  { n: "01", text: "What kinds of projects do you take on?" },
+  { n: "02", text: "How does a Build Engagement work?" },
+  { n: "03", text: "What's your stack and where are you strongest?" },
+  { n: "04", text: "What won't you take on?" },
 ];
 
 const INITIAL_GREETING: ChatMessage = {
   id: "greet",
   role: "assistant",
   content:
-    "Hi — I'm the studio's AI concierge. Ask about engagement formats, the team, our stack, or how to start a project. For anything past a quick scope check, I'll point you to Nishant.",
+    "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. For anything load-bearing, I'll point you to Nishant — replies in two business days.",
 };
 
 function generateId() {
@@ -109,96 +109,130 @@ export function ChatWidget() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="Open studio chat"
-        className="fixed bottom-6 right-6 z-40 flex size-14 items-center justify-center rounded-full border-2 border-border bg-secondary text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.2)] transition hover:-translate-y-0.5"
-      >
-        <Icon
-          icon="solar:chat-round-dots-bold-duotone"
-          className="size-7"
+      {/* Trigger — studio plaque, not a generic helpdesk circle */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-end gap-3">
+        <span
           aria-hidden="true"
-        />
-        <span className="absolute -top-0.5 -right-0.5 flex size-3.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-luxury opacity-75" />
-          <span className="relative inline-flex size-3.5 rounded-full bg-luxury ring-2 ring-background" />
+          className="hidden font-accent text-xl font-bold leading-tight text-foreground/70 sm:block sm:max-w-[10rem] sm:translate-y-1 sm:text-right"
+        >
+          ↳ a real reply within
+          <br />
+          two business days
         </span>
-      </button>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Open studio intake desk"
+          className="group relative inline-flex items-center gap-2.5 rounded-2xl border-2 border-border bg-background px-4 py-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <LogoMark className="size-6" />
+          <span className="leading-none">Ask the studio</span>
+          <span className="relative ml-0.5 flex size-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-75" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-[hsl(var(--luxury))]" />
+          </span>
+        </button>
+      </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="right"
-          className="flex w-full flex-col gap-0 border-l-2 border-border bg-background p-0 sm:max-w-md"
+          className="section-wash section-wash-amber flex w-full flex-col gap-0 border-l-2 border-border bg-background p-0 sm:max-w-md"
         >
-          <SheetHeader className="border-b-2 border-border bg-secondary px-6 py-5">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full border-2 border-border bg-background text-foreground">
-                <Icon
-                  icon="solar:cpu-bolt-bold-duotone"
-                  className="size-5 text-luxury"
-                  aria-hidden="true"
-                />
+          {/* Header — editorial intake desk */}
+          <SheetHeader className="relative overflow-hidden border-b-2 border-border bg-card px-6 py-6">
+            <div
+              aria-hidden="true"
+              className="dot-matrix animate-drift pointer-events-none absolute -right-3 -top-3 h-24 w-24 opacity-40"
+            />
+            <div className="relative flex items-center gap-3">
+              <div className="flex size-12 items-center justify-center rounded-2xl border-2 border-border bg-background">
+                <LogoMark className="size-7" />
               </div>
               <div>
-                <SheetTitle className="text-lg font-black uppercase">Ask the studio</SheetTitle>
-                <SheetDescription className="text-xs font-bold">
-                  AI concierge · scoped to {siteConfig.name}
+                <SheetTitle className="outline-heading text-2xl font-black uppercase leading-none">
+                  Intake desk
+                </SheetTitle>
+                <SheetDescription className="font-accent mt-1 text-lg font-bold leading-none text-foreground/70">
+                  scoped to {siteConfig.name}
                 </SheetDescription>
               </div>
             </div>
+            <div className="relative mt-4 flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-foreground/70">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-[hsl(var(--luxury))]" />
+              </span>
+              <span>{streaming ? "Composing reply…" : "Live · staffed by AI + humans"}</span>
+            </div>
           </SheetHeader>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-5">
-            <ul className="flex flex-col gap-4">
+          {/* Conversation */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-6">
+            <ul className="flex flex-col gap-5">
               {messages.map((msg) => (
                 <li
                   key={msg.id}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div
-                    className={`max-w-[85%] whitespace-pre-wrap rounded-2xl border-2 border-border px-4 py-2.5 text-sm leading-6 ${
-                      msg.role === "user"
-                        ? "bg-secondary text-foreground shadow-[4px_4px_0_hsl(var(--foreground)/0.14)]"
-                        : "bg-card text-foreground"
-                    }`}
-                  >
-                    {msg.content || (streaming ? "…" : "")}
-                  </div>
+                  {msg.role === "assistant" ? (
+                    <div className="flex max-w-[88%] gap-2">
+                      <span
+                        aria-hidden="true"
+                        className="select-none pt-1 text-xl font-black leading-none text-[hsl(var(--luxury))]"
+                      >
+                        ↳
+                      </span>
+                      <div className="whitespace-pre-wrap rounded-2xl rounded-tl-sm border-2 border-border bg-card px-4 py-3 text-sm leading-6 text-foreground">
+                        {msg.content || (streaming ? <BlinkCaret /> : "")}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm border-2 border-border bg-[hsl(var(--luxury))] px-4 py-3 text-sm font-bold leading-6 text-foreground shadow-[3px_3px_0_hsl(var(--foreground)/0.18)]">
+                      {msg.content}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
 
             {messages.length <= 1 && !streaming ? (
-              <div className="mt-6 flex flex-col gap-2">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                  Try asking
-                </p>
-                {SUGGESTED_PROMPTS.map((prompt) => (
-                  <button
-                    key={prompt}
-                    type="button"
-                    onClick={() => void send(prompt)}
-                    className="rounded-xl border-2 border-border bg-card px-3 py-2 text-left text-sm font-bold text-foreground transition hover:bg-accent"
-                  >
-                    {prompt}
-                  </button>
-                ))}
+              <div className="mt-8">
+                <p className="section-kicker">Try asking</p>
+                <ul className="mt-4 flex flex-col gap-2.5">
+                  {SUGGESTED_PROMPTS.map((prompt) => (
+                    <li key={prompt.n}>
+                      <button
+                        type="button"
+                        onClick={() => void send(prompt.text)}
+                        className="group flex w-full items-start gap-3 rounded-xl border-2 border-border bg-background px-3.5 py-3 text-left shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_hsl(var(--foreground)/0.18)]"
+                      >
+                        <span className="font-accent text-2xl font-bold leading-none text-[hsl(var(--luxury))]">
+                          {prompt.n}
+                        </span>
+                        <span className="text-sm font-bold leading-6 text-foreground">
+                          {prompt.text}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ) : null}
 
             {error ? (
-              <p className="mt-4 rounded-xl border-2 border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive">
+              <p className="mt-4 rounded-xl border-2 border-destructive/40 bg-destructive/5 px-3 py-2 text-xs font-bold text-destructive">
                 {error}
               </p>
             ) : null}
           </div>
 
+          {/* Composer */}
           <form
             onSubmit={handleSubmit}
             className="border-t-2 border-border bg-background px-4 py-4"
           >
-            <div className="flex items-end gap-2 rounded-2xl border-2 border-border bg-card px-3 py-2 shadow-[4px_4px_0_hsl(var(--foreground)/0.1)] focus-within:border-luxury">
+            <div className="flex items-end gap-2 rounded-2xl border-2 border-border bg-card p-2 shadow-[4px_4px_0_hsl(var(--foreground)/0.16)] focus-within:border-[hsl(var(--luxury))]">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -208,34 +242,44 @@ export function ChatWidget() {
                     void send(input);
                   }
                 }}
-                placeholder={streaming ? "Replying…" : "Ask about scope, timing, the team…"}
+                placeholder={streaming ? "Composing reply…" : "Tell us what you're shipping…"}
                 rows={1}
                 disabled={streaming}
-                className="min-h-[2.25rem] flex-1 resize-none bg-transparent text-sm leading-6 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60"
+                className="min-h-[2.5rem] flex-1 resize-none bg-transparent px-2 py-1 text-sm leading-6 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60"
               />
-              <Button
+              <button
                 type="submit"
-                size="icon"
                 disabled={streaming || !input.trim()}
-                className="size-9 shrink-0 rounded-full"
                 aria-label="Send message"
+                className="flex size-10 shrink-0 items-center justify-center rounded-xl border-2 border-border bg-foreground text-background shadow-[3px_3px_0_hsl(var(--luxury))] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:hover:translate-y-0"
               >
-                <Send className="size-4" aria-hidden="true" />
-              </Button>
+                <ArrowUp className="size-4" aria-hidden="true" />
+              </button>
             </div>
-            <p className="mt-2 text-[11px] text-muted-foreground">
-              Powered by AI · for anything serious, email{" "}
+            <p className="font-accent mt-3 text-base font-bold leading-tight text-foreground/70">
+              Built by {siteConfig.name} · for anything load-bearing, email{" "}
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="underline underline-offset-2 hover:text-foreground"
+                className="text-[hsl(var(--luxury))] underline decoration-2 underline-offset-4 hover:text-foreground"
               >
                 {siteConfig.primaryContactName}
-              </a>
-              .
+              </a>{" "}
+              directly.
             </p>
           </form>
         </SheetContent>
       </Sheet>
     </>
+  );
+}
+
+function BlinkCaret() {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-block animate-pulse text-[hsl(var(--luxury))]"
+    >
+      ▍
+    </span>
   );
 }

@@ -8,6 +8,10 @@ export type TeamMember = {
   role: string;
   bio: string;
   initials: string;
+  photo?: {
+    src: string;
+    alt: string;
+  };
   links: SiteLink[];
   proofBullets: string[];
   sourceLinks: SiteLink[];
@@ -55,9 +59,11 @@ export const siteConfig = {
       role: "Generative AI & Platform Engineering",
       bio: "Three years building production AI — voice agents, multi-agent reasoning systems, and the self-hosted cloud infrastructure that runs them. Leads the studio's AI and platform work end to end.",
       initials: "DG",
+      photo: {
+        src: "/team/divyansh-gupta.jpg",
+        alt: "Divyansh Gupta profile photo",
+      },
       links: [
-        { label: "Portfolio", href: "https://divyansh-675.github.io/" },
-        { label: "GitHub", href: "https://github.com/DIVYANSH-675" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/divyansh-gupta-b4396a207/" },
       ],
       proofBullets: [
@@ -75,9 +81,11 @@ export const siteConfig = {
       role: "Product Engineering & SaaS",
       bio: "Three years shipping multi-tenant SaaS, AI products, and growth-ready frontends for early-stage founders. Owns the studio's product surface from first prototype to live revenue.",
       initials: "JP",
+      photo: {
+        src: "/team/jigyasu-patel.jpg",
+        alt: "Jigyasu Patel profile photo",
+      },
       links: [
-        { label: "Portfolio", href: "https://jigyasu-patel.netlify.app/" },
-        { label: "GitHub", href: "https://github.com/jigyasu2004" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/jigyasu-patel-6a90a3257/" },
       ],
       proofBullets: [
@@ -95,9 +103,12 @@ export const siteConfig = {
       role: "Full-Stack, Mobile & Web3",
       bio: "Three years of full-stack delivery across web, Android, and on-chain product surfaces. Runs the studio's client engagements and integrates the team's work into shipped systems.",
       initials: "NN",
+      photo: {
+        src: "/team/nishant-nischal.jpg",
+        alt: "Nishant Nischal profile photo",
+      },
       links: [
         { label: "LinkedIn", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
-        { label: "Email", href: "mailto:nishantnischal25@gmail.com" },
       ],
       proofBullets: [
         "Full-stack delivery across web and mobile surfaces",

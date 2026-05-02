@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { animate, motion, useInView, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { ArrowRight, CheckCircle2, ExternalLink, Mail, Quote } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -50,11 +49,18 @@ const services = [
   },
 ];
 
-const proofItems = [
-  { value: "Since 2023", label: "shipping product, AI, and growth surfaces" },
-  { value: "5", suffix: " production products", label: "live products with public proof" },
-  { value: "40", suffix: "+ open repos", label: "craft clients can inspect before signing" },
-  { value: "AI · SaaS · Infra", label: "from model-backed UX to deployment platforms" },
+const heroMetrics = [
+  { value: "5", label: "production products" },
+  { value: "40+", label: "open repos" },
+  { value: "3", label: "senior builders" },
+  { value: "2 days", label: "reply time" },
+];
+
+const antiPositioning = [
+  "retainers",
+  "account managers",
+  "subcontractors",
+  "fixed-bid waterfall",
 ];
 
 const stackLogos = [
@@ -167,27 +173,43 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             className="relative z-10 max-w-2xl"
           >
             <motion.p variants={item} className="section-kicker">
-              Hello world, <span className="text-[hsl(var(--luxury))]">we are</span>
+              Product engineering studio · <span className="text-[hsl(var(--luxury))]">since 2023</span>
             </motion.p>
             <motion.h1
               variants={item}
-              className="outline-heading animate-mask-reveal mt-6 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-8xl"
+              className="outline-heading animate-mask-reveal mt-6 text-5xl font-black uppercase leading-[0.92] sm:text-6xl lg:text-[5.25rem]"
             >
-              {siteConfig.name}
+              Software, AI, and growth surfaces — shipped before the kickoff slide is dry.
             </motion.h1>
             <motion.p variants={item} className="handwritten mt-5 text-foreground">
-              A product engineering studio
-              <span className="ml-3 inline-block align-middle text-base text-[hsl(var(--luxury))]">
-                ↳ since 2023
-              </span>
+              ↳ {siteConfig.name}
             </motion.p>
             <motion.p
               variants={item}
-              className="mt-9 max-w-xl text-xl leading-9 text-muted-foreground"
+              className="mt-7 max-w-xl text-lg leading-8 text-muted-foreground"
             >
-              Three senior builders helping founders ship websites, AI systems,
-              SaaS products, automations, and deployment paths that survive real users.
+              Three senior builders helping founders ship websites, AI systems, SaaS, and the
+              deployment paths that survive real users.
             </motion.p>
+
+            <motion.ul
+              variants={item}
+              aria-label="Studio at a glance"
+              className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-4"
+            >
+              {heroMetrics.map((m) => (
+                <li
+                  key={m.label}
+                  className="rounded-xl border-2 border-border bg-card px-3 py-2.5 shadow-[3px_3px_0_hsl(var(--foreground)/0.16)]"
+                >
+                  <p className="text-2xl font-black leading-none text-foreground">{m.value}</p>
+                  <p className="mt-1 text-[10px] font-black uppercase tracking-[0.08em] text-[hsl(var(--luxury))]">
+                    {m.label}
+                  </p>
+                </li>
+              ))}
+            </motion.ul>
+
             <motion.div variants={item} className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Button asChild size="lg">
                 <Link href={siteConfig.contactHref}>
@@ -233,25 +255,33 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
-      <section aria-label="By the numbers" className="studio-section">
-        <div className="container grid gap-5 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          {proofItems.map((proof) => (
-            <div
-              key={proof.value}
-              className="studio-panel rounded-full px-6 py-5 text-center sm:text-left"
-            >
-              <p className="text-3xl font-black leading-none sm:text-4xl">
-                {Number.isNaN(Number(proof.value)) ? (
-                  proof.value
-                ) : (
-                  <Counter to={Number(proof.value)} suffix={proof.suffix} />
-                )}
-              </p>
-              <p className="mt-2 text-xs font-black uppercase tracking-[0.08em] text-[hsl(var(--luxury))]">
-                {proof.label}
-              </p>
-            </div>
-          ))}
+      {/* Anti-positioning band — sharpest weapon, single line, declarative */}
+      <section
+        aria-label="What we don't do"
+        className="border-b-2 border-border bg-foreground text-background"
+      >
+        <div className="container py-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-center">
+            {antiPositioning.map((item, idx) => (
+              <span
+                key={item}
+                className="flex items-baseline gap-2 text-sm font-black uppercase tracking-[0.08em] sm:text-base"
+              >
+                <span className="text-2xl font-black text-[hsl(var(--luxury))] sm:text-3xl">
+                  NO
+                </span>
+                <span>{item}</span>
+                {idx < antiPositioning.length - 1 ? (
+                  <span aria-hidden="true" className="ml-3 text-background/40">
+                    ·
+                  </span>
+                ) : null}
+              </span>
+            ))}
+          </div>
+          <p className="font-accent mt-4 text-center text-2xl font-bold leading-none text-background/80 sm:text-3xl">
+            ↳ just three senior builders shipping the work.
+          </p>
         </div>
       </section>
 
@@ -397,9 +427,21 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             {siteConfig.team.map((member) => (
               <Card key={member.name} className="h-full">
                 <CardHeader className="gap-5">
-                  <div className="flex size-16 items-center justify-center rounded-2xl border-2 border-border bg-secondary font-black">
-                    {member.initials}
-                  </div>
+                  {member.photo ? (
+                    <div className="relative size-20 overflow-hidden rounded-2xl border-2 border-border bg-background shadow-[7px_7px_0_rgba(16,16,16,0.18)]">
+                      <Image
+                        src={member.photo.src}
+                        alt={member.photo.alt}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex size-16 items-center justify-center rounded-2xl border-2 border-border bg-secondary font-black">
+                      {member.initials}
+                    </div>
+                  )}
                   <div>
                     <CardTitle className="text-xl uppercase">{member.name}</CardTitle>
                     <CardDescription>{member.role}</CardDescription>
@@ -435,32 +477,66 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         </div>
       </section>
 
+      {/* Manifesto moment — single POV line, no header, no CTA */}
+      <section
+        aria-label="Studio point of view"
+        className="border-b-2 border-border bg-background"
+      >
+        <div className="container relative py-20 text-center">
+          <div
+            aria-hidden="true"
+            className="dot-matrix animate-drift absolute left-1/2 top-6 h-16 w-16 -translate-x-1/2 opacity-30"
+          />
+          <p className="font-accent mx-auto max-w-4xl text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            We measure builders by what&apos;s running in production —
+            <span className="text-[hsl(var(--luxury))]"> not what&apos;s in a deck.</span>
+          </p>
+          <p className="section-kicker mt-6 text-foreground/60">— The studio</p>
+        </div>
+      </section>
+
       <section className="studio-section section-wash section-wash-rose">
         <div className="container py-20">
           <SectionHeader
-            kicker="Testimonials"
-            title="What clients walk away with."
-            subtitle="Public proof where we have it, anonymized outcome proof where the client relationship needs privacy."
+            kicker="Outcomes"
+            title="Numbers, not testimonials."
+            subtitle="The metric on each story is the one the client cared about. Names withheld where the client relationship needs privacy."
           />
-          <p className="marginalia mt-3">↳ what they say afterwards</p>
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {outcomeProof.map((proof) => (
-              <Card key={proof.title} className="h-full">
-                <CardHeader>
-                  <Quote className="size-8 text-[hsl(var(--luxury))]" aria-hidden="true" />
-                  <CardTitle className="text-xl uppercase">{proof.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-5">
-                  <p className="text-5xl font-black">{proof.metric}</p>
-                  <p className="font-bold text-muted-foreground">{proof.detail}</p>
-                  <blockquote className="border-l-4 border-[hsl(var(--luxury))] pl-4 font-accent text-3xl font-bold leading-none">
-                    {proof.quote}
-                  </blockquote>
-                </CardContent>
-              </Card>
+          <p className="marginalia mt-3">↳ what changed after we shipped</p>
+          <div className="mt-12 flex flex-col gap-5">
+            {outcomeProof.map((proof, idx) => (
+              <article
+                key={proof.title}
+                className="card-lift relative overflow-hidden rounded-2xl border-2 border-border bg-card shadow-[7px_7px_0_hsl(var(--foreground)/0.16)]"
+              >
+                <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-10">
+                  <div className="border-b-2 border-border pb-6 lg:border-b-0 lg:border-r-2 lg:pb-0 lg:pr-10">
+                    <p className="font-accent text-xl font-bold leading-none text-foreground/60">
+                      № {String(idx + 1).padStart(2, "0")}
+                    </p>
+                    <p className="outline-heading mt-3 text-7xl font-black uppercase leading-[0.85] sm:text-8xl lg:text-[7rem]">
+                      {proof.metric}
+                    </p>
+                    <p className="mt-4 text-sm font-black uppercase tracking-[0.1em] text-foreground/70">
+                      {proof.detail}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="section-kicker text-[hsl(var(--luxury))]">
+                      {proof.title}
+                    </p>
+                    <blockquote className="font-accent mt-4 border-l-4 border-[hsl(var(--luxury))] pl-5 text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+                      &ldquo;{proof.quote}&rdquo;
+                    </blockquote>
+                    <p className="mt-5 text-xs font-black uppercase tracking-[0.1em] text-muted-foreground">
+                      ↳ Verified outcome · 2025
+                    </p>
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
             {earlierWorkItems.map((work) => (
               <Card key={work.title} className="h-full shadow-none">
                 <CardHeader>
@@ -657,21 +733,3 @@ function CapabilityBand({
   );
 }
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const count = useMotionValue(0);
-  const display = useTransform(count, (latest) => `${Math.round(latest).toLocaleString()}${suffix}`);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(count, to, { duration: 1.2, ease: [0.22, 1, 0.36, 1] });
-    return () => controls.stop();
-  }, [count, inView, to]);
-
-  return (
-    <motion.span ref={ref} aria-label={`${to}${suffix}`}>
-      {display}
-    </motion.span>
-  );
-}
