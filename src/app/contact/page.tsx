@@ -32,8 +32,33 @@ const initialState: FormState = {
   botcheck: "",
 };
 
-const WEB3FORMS_ACCESS_KEY =
-  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "500fc247-c97a-4b2e-a097-fc4afb60c469";
+const WEB3FORMS_ACCESS_KEYS = (
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEYS ??
+  "500fc247-c97a-4b2e-a097-fc4afb60c469,35e721ee-11d5-4119-bb75-3fc4764e993c"
+)
+  .split(",")
+  .map((key) => key.trim())
+  .filter(Boolean);
+
+async function submitToWeb3Forms(accessKey: string, payload: Record<string, string>) {
+  const response = await fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ access_key: accessKey, ...payload }),
+  });
+
+  const data = (await response.json().catch(() => ({}))) as {
+    success?: boolean;
+    message?: string;
+  };
+
+  if (!response.ok || !data.success) {
+    throw new Error(data.message ?? `Request failed (${response.status}).`);
+  }
+}
 
 export default function ContactPage() {
   const [form, setForm] = useState<FormState>(initialState);
@@ -56,46 +81,41 @@ export default function ContactPage() {
     setSubmitState("sending");
     setStatusMessage("Sending your project note…");
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Project inquiry from ${form.name}`,
-          from_name: `${siteConfig.name} contact form`,
-          name: form.name,
-          email: form.email,
-          project_type: form.project || "Not specified",
-          message: form.message,
-          botcheck: form.botcheck,
-        }),
-      });
+    const payload = {
+      subject: `Project inquiry from ${form.name}`,
+      from_name: `${siteConfig.name} contact form`,
+      name: form.name,
+      email: form.email,
+      project_type: form.project || "Not specified",
+      message: form.message,
+      botcheck: form.botcheck,
+    };
 
-      const data = (await response.json().catch(() => ({}))) as {
-        success?: boolean;
-        message?: string;
-      };
+    const results = await Promise.allSettled(
+      WEB3FORMS_ACCESS_KEYS.map((key) => submitToWeb3Forms(key, payload)),
+    );
 
-      if (response.ok && data.success) {
-        setSubmitState("success");
-        setStatusMessage(
-          `Project note sent. ${siteConfig.primaryContactName} will reply within one business day.`,
-        );
-        setForm(initialState);
-        return;
-      }
+    const succeeded = results.filter((r) => r.status === "fulfilled").length;
 
-      throw new Error(data.message ?? `Request failed (${response.status}).`);
-    } catch (err) {
-      setSubmitState("error");
-      const fallback =
-        err instanceof Error ? err.message : "Something went wrong while sending.";
-      setStatusMessage(`${fallback} You can also email ${siteConfig.email} directly.`);
+    if (succeeded > 0) {
+      setSubmitState("success");
+      setStatusMessage(
+        `Project note sent. ${siteConfig.primaryContactName} will reply within one business day.`,
+      );
+      setForm(initialState);
+      return;
     }
+
+    const firstError = results.find(
+      (r): r is PromiseRejectedResult => r.status === "rejected",
+    );
+    const reason =
+      firstError?.reason instanceof Error
+        ? firstError.reason.message
+        : "Something went wrong while sending.";
+
+    setSubmitState("error");
+    setStatusMessage(`${reason} You can also email ${siteConfig.email} directly.`);
   }
 
   return (
