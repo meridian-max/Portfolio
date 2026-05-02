@@ -29,7 +29,7 @@ const INITIAL_GREETING: ChatMessage = {
   id: "greet",
   role: "assistant",
   content:
-    "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. For anything load-bearing, I'll point you to Nishant — replies in two business days.",
+    "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. For anything load-bearing, I'll point you to Nishant — replies in one business day.",
 };
 
 function generateId() {
@@ -117,7 +117,7 @@ export function ChatWidget() {
         >
           ↳ a real reply within
           <br />
-          two business days
+          one business day
         </span>
         <button
           type="button"

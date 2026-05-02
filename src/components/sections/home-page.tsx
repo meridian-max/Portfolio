@@ -53,7 +53,7 @@ const heroMetrics = [
   { value: "5", label: "production products" },
   { value: "40+", label: "open repos" },
   { value: "Small team", label: "senior builders" },
-  { value: "2 days", label: "reply time" },
+  { value: "1 day", label: "reply time" },
 ];
 
 const antiPositioning = [

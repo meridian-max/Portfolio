@@ -43,7 +43,7 @@ export function Footer() {
                 <ArrowUpRight className="size-4" aria-hidden="true" />
               </Link>
               <span className="font-accent text-2xl font-bold text-foreground/70">
-                ↳ replies within two business days
+                ↳ replies within one business day
               </span>
             </div>
             <div className="mt-10 flex flex-wrap gap-3">

@@ -71,9 +71,9 @@ export default function ContactPage() {
           </h1>
           <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">
             Send the outcome, constraints, timeline, and links you already have.
-            We reply to every project note within two business days.
+            We reply to every project note within one business day.
           </p>
-          <p className="marginalia mt-4">↳ replies within two business days</p>
+          <p className="marginalia mt-4">↳ replies within one business day</p>
         </div>
       </section>
 
@@ -84,7 +84,7 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle>Email the studio</CardTitle>
               <CardDescription>
-                The fastest way to start. Replies within two business days.
+                The fastest way to start. Replies within one business day.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">

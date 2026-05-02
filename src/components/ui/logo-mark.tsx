@@ -5,7 +5,7 @@ type LogoMarkProps = {
   ariaLabel?: string;
 };
 
-export function LogoMark({ className, ariaLabel = "GreedUp" }: LogoMarkProps) {
+export function LogoMark({ className, ariaLabel = "GreedUp logo" }: LogoMarkProps) {
   return (
     <svg
       viewBox="0 0 64 64"
@@ -15,24 +15,37 @@ export function LogoMark({ className, ariaLabel = "GreedUp" }: LogoMarkProps) {
       aria-label={ariaLabel}
       className={cn("size-9", className)}
     >
-      <rect x="6" y="6" width="52" height="52" rx="10" className="fill-background" />
+      <rect x="9" y="11" width="48" height="48" rx="11" className="fill-foreground opacity-20" />
       <rect
         x="6"
         y="6"
-        width="52"
-        height="52"
-        rx="10"
-        strokeWidth="4"
-        className="stroke-[hsl(var(--luxury))]"
+        width="50"
+        height="50"
+        rx="11"
+        strokeWidth="3.5"
+        className="fill-background stroke-foreground"
       />
       <path
-        d="M16 46 L16 18 L32 34 L48 18 L48 46"
-        strokeWidth="4"
+        d="M44 21a17 17 0 1 0 2 21H34"
+        strokeWidth="4.25"
         strokeLinecap="round"
         strokeLinejoin="round"
         className="stroke-foreground"
       />
-      <circle cx="51" cy="15" r="4" className="fill-[hsl(var(--luxury))]" />
+      <path
+        d="M34 42l16-16m0 0v13m0-13H37"
+        strokeWidth="4.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="stroke-[hsl(var(--luxury))]"
+      />
+      <circle
+        cx="50"
+        cy="15"
+        r="5"
+        strokeWidth="3"
+        className="fill-[hsl(var(--luxury))] stroke-foreground"
+      />
     </svg>
   );
 }
