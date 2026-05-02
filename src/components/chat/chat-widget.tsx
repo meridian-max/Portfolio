@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ArrowUp } from "lucide-react";
 import {
   Sheet,
@@ -32,6 +34,8 @@ const INITIAL_GREETING: ChatMessage = {
     "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. For anything load-bearing, I'll point you to Nishant — replies in one business day.",
 };
 
+gsap.registerPlugin(useGSAP);
+
 function generateId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -42,7 +46,94 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_GREETING]);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useGSAP(
+    () => {
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(trigger, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          clearProps: "transform,opacity,visibility,willChange",
+        });
+        return;
+      }
+
+      gsap.fromTo(
+        trigger,
+        { autoAlpha: 0, y: 18, scale: 0.96, willChange: "transform, opacity" },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.55,
+          delay: 0.9,
+          ease: "back.out(1.25)",
+          clearProps: "willChange",
+        },
+      );
+
+      const dot = trigger.querySelector("[data-chat-dot]");
+      if (!dot) return;
+
+      const pulse = gsap.to(dot, {
+        scale: 1.35,
+        autoAlpha: 0.65,
+        duration: 1.15,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1.4,
+      });
+
+      return () => pulse.kill();
+    },
+    { scope: triggerRef },
+  );
+
+  useGSAP(
+    () => {
+      const panel = panelRef.current;
+      if (!open || !panel) return;
+
+      const animated = Array.from(
+        panel.querySelectorAll("[data-chat-panel], [data-chat-message], [data-chat-prompt], [data-chat-composer]"),
+      );
+      if (!animated.length) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(animated, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          clearProps: "transform,opacity,visibility,willChange",
+        });
+        return;
+      }
+
+      gsap.fromTo(
+        animated,
+        { autoAlpha: 0, y: 14, scale: 0.99, willChange: "transform, opacity" },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.42,
+          ease: "power3.out",
+          stagger: 0.045,
+          overwrite: "auto",
+          clearProps: "willChange",
+        },
+      );
+    },
+    { dependencies: [open, messages.length, streaming], scope: panelRef, revertOnUpdate: true },
+  );
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -111,12 +202,13 @@ export function ChatWidget() {
     <>
       {/* Trigger — studio plaque, not a generic helpdesk circle */}
       <div
+        ref={triggerRef}
         data-chat-trigger="studio-intake"
         className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-40 flex max-w-[calc(100vw-2rem)] items-end gap-3 sm:right-5 lg:right-6 lg:bottom-6 2xl:right-8"
       >
         <span
           aria-hidden="true"
-          className="adaptive-contrast hidden font-accent text-xl font-bold leading-tight 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
+          className="hidden font-accent text-xl font-bold leading-tight text-foreground/75 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
         >
           ↳ a real reply within
           <br />
@@ -131,7 +223,7 @@ export function ChatWidget() {
           <LogoMark className="size-6" />
           <span className="hidden leading-none min-[1440px]:inline 2xl:hidden">Ask</span>
           <span className="hidden leading-none 2xl:inline">Ask the studio</span>
-          <span className="relative ml-0.5 hidden size-2.5 min-[1440px]:flex">
+          <span data-chat-dot="" className="relative ml-0.5 hidden size-2.5 min-[1440px]:flex">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-75" />
             <span className="relative inline-flex size-2.5 rounded-full bg-[hsl(var(--luxury))]" />
           </span>
@@ -140,11 +232,12 @@ export function ChatWidget() {
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
+          ref={panelRef}
           side="right"
           className="section-wash section-wash-amber flex h-dvh max-h-dvh w-full max-w-full flex-col gap-0 overflow-hidden border-l-2 border-border bg-background p-0 sm:max-w-md"
         >
           {/* Header — editorial intake desk */}
-          <SheetHeader className="relative shrink-0 overflow-hidden border-b-2 border-border bg-card px-4 py-4 pr-12 text-left sm:px-6 sm:py-5">
+          <SheetHeader data-chat-panel="" className="relative shrink-0 overflow-hidden border-b-2 border-border bg-card px-4 py-4 pr-12 text-left sm:px-6 sm:py-5">
             <div
               aria-hidden="true"
               className="dot-matrix animate-drift pointer-events-none absolute -right-3 -top-3 h-24 w-24 opacity-40"
@@ -179,6 +272,7 @@ export function ChatWidget() {
               {messages.map((msg) => (
                 <li
                   key={msg.id}
+                  data-chat-message=""
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "assistant" ? (
@@ -207,7 +301,7 @@ export function ChatWidget() {
                 <p className="section-kicker">Try asking</p>
                 <ul className="mt-4 flex flex-col gap-2.5">
                   {SUGGESTED_PROMPTS.map((prompt) => (
-                    <li key={prompt.n}>
+                    <li key={prompt.n} data-chat-prompt="">
                       <button
                         type="button"
                         onClick={() => void send(prompt.text)}
@@ -236,6 +330,7 @@ export function ChatWidget() {
           {/* Composer */}
           <form
             onSubmit={handleSubmit}
+            data-chat-composer=""
             className="shrink-0 border-t-2 border-border bg-background px-4 py-3 sm:py-4"
           >
             <div className="flex items-end gap-2 rounded-2xl border-2 border-border bg-card p-2 shadow-[4px_4px_0_hsl(var(--foreground)/0.16)] focus-within:border-[hsl(var(--luxury))]">

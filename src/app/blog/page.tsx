@@ -24,7 +24,7 @@ export default async function BlogPage() {
   return (
     <div>
       <section className="studio-section section-wash section-wash-emerald">
-        <div className="container relative py-16 text-center">
+        <div data-animate="section" className="container relative py-16 text-center">
           <div aria-hidden="true" className="dot-matrix animate-drift absolute left-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">From the studio</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
@@ -41,7 +41,7 @@ export default async function BlogPage() {
       <section className="studio-section">
         <div className="container grid gap-6 py-16 md:grid-cols-2">
           {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
+            <Link key={post.slug} href={`/blog/${post.slug}`} data-animate="card" className="group">
               <Card className="h-full overflow-hidden">
                 <div className="relative aspect-[16/9] border-b-2 border-border bg-muted">
                   {post.image ? (

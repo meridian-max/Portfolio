@@ -101,7 +101,7 @@ export default function ContactPage() {
   return (
     <div>
       <section className="studio-section section-wash section-wash-amber">
-        <div className="container relative py-16 text-center">
+        <div data-animate="section" className="container relative py-16 text-center">
           <div aria-hidden="true" className="dot-matrix animate-drift absolute right-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">Let&apos;s talk about ideas</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
@@ -118,7 +118,7 @@ export default function ContactPage() {
       <div className="container py-16">
         <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="flex flex-col gap-6">
-          <Card>
+          <Card data-animate="card">
             <CardHeader>
               <CardTitle>Email the studio</CardTitle>
               <CardDescription>
@@ -139,7 +139,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card data-animate="card">
             <CardHeader>
               <CardTitle>Team</CardTitle>
               <CardDescription>
@@ -251,7 +251,7 @@ export default function ContactPage() {
                   name="message"
                   value={form.message}
                   onChange={(event) => updateField("message", event.target.value)}
-                  placeholder="Tell us about the outcome, audience, constraints, timeline, and any public proof or links you already have."
+                  placeholder="Outcome, audience, constraints, timeline, and links."
                   className="min-h-40 resize-y"
                   disabled={submitState === "sending"}
                 />

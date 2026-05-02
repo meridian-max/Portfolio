@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { ArrowRight, CheckCircle2, ExternalLink, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -129,29 +128,6 @@ type LatestPost = {
   tags: string[];
 };
 
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.11, delayChildren: 0.08 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 22 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
-const railItem = {
-  hidden: { opacity: 0, x: 18 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
 const statusRail = [
   { label: "Now", value: "Booking SaaS · v3" },
   { label: "Next", value: "Voice agent · iter 2" },
@@ -166,43 +142,38 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
       <section className="studio-section">
         <div className="container relative grid items-center gap-10 py-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:py-14 xl:gap-12 2xl:py-16">
           <div aria-hidden="true" className="dot-matrix animate-drift absolute left-0 top-24 h-28 w-28 opacity-50" />
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="relative z-10 max-w-2xl"
-          >
-            <motion.p variants={item} className="section-kicker">
+          <div className="relative z-10 max-w-2xl">
+            <p data-animate="hero-kicker" className="section-kicker">
               Hello world, <span className="text-[hsl(var(--luxury))]">we are</span>
-            </motion.p>
-            <motion.h1
-              variants={item}
+            </p>
+            <h1
+              data-animate="hero-title"
               className="outline-heading animate-mask-reveal mt-6 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-8xl"
             >
               {siteConfig.name}
-            </motion.h1>
-            <motion.p variants={item} className="handwritten mt-5 text-foreground">
+            </h1>
+            <p data-animate="hero-subtitle" className="handwritten mt-5 text-foreground">
               A product engineering studio
               <span className="ml-3 inline-block align-middle text-base text-[hsl(var(--luxury))]">
                 ↳ since 2023
               </span>
-            </motion.p>
-            <motion.p
-              variants={item}
+            </p>
+            <p
+              data-animate="hero-copy"
               className="mt-9 max-w-xl text-xl leading-9 text-muted-foreground"
             >
               A small team of senior builders helping founders ship websites, AI systems,
               SaaS products, automations, and deployment paths that survive real users.
-            </motion.p>
+            </p>
 
-            <motion.ul
-              variants={item}
+            <ul
               aria-label="Studio at a glance"
               className="mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-4"
             >
               {heroMetrics.map((m) => (
                 <li
                   key={m.label}
+                  data-animate="hero-metric"
                   className="rounded-xl border-2 border-border bg-card px-3 py-2.5 shadow-[3px_3px_0_hsl(var(--foreground)/0.16)]"
                 >
                   <p className="text-2xl font-black leading-none text-foreground">{m.value}</p>
@@ -211,9 +182,9 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                   </p>
                 </li>
               ))}
-            </motion.ul>
+            </ul>
 
-            <motion.div variants={item} className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div data-animate="hero-actions" className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Button asChild size="lg">
                 <Link href={siteConfig.contactHref}>
                   <Mail data-icon="inline-start" />
@@ -226,21 +197,18 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                   <ArrowRight data-icon="inline-end" />
                 </Link>
               </Button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           <div className="relative min-w-0">
-            <motion.aside
-              variants={container}
-              initial="hidden"
-              animate="show"
+            <aside
               aria-label="Studio status"
               className="mb-4 hidden flex-wrap items-center justify-center gap-2 2xl:flex"
             >
               {statusRail.map((entry) => (
-                <motion.div
+                <div
                   key={entry.label}
-                  variants={railItem}
+                  data-animate="hero-status"
                   className="flex items-center gap-2"
                 >
                   <span className="font-accent text-xl font-bold leading-none text-[hsl(var(--luxury))]">
@@ -250,9 +218,9 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                   <span className="rounded-full border-2 border-border bg-card px-3 py-1 text-[11px] font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)]">
                     {entry.value}
                   </span>
-                </motion.div>
+                </div>
               ))}
-            </motion.aside>
+            </aside>
             <ProductOrbit />
           </div>
         </div>
@@ -264,7 +232,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         className="border-b-2 border-border bg-foreground text-background"
       >
         <div className="container py-10">
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-4 text-center sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-7 sm:gap-y-3">
+          <ul data-animate="panel" className="grid grid-cols-2 gap-x-6 gap-y-4 text-center sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-7 sm:gap-y-3">
             {antiPositioning.map((item, idx) => (
               <li
                 key={item}
@@ -282,7 +250,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
               </li>
             ))}
           </ul>
-          <p className="font-accent mt-5 text-center text-xl font-bold leading-tight text-background/80 sm:text-3xl sm:leading-none">
+          <p data-animate="panel" className="font-accent mt-5 text-center text-xl font-bold leading-tight text-background/80 sm:text-3xl sm:leading-none">
             ↳ just a small team of senior builders shipping the work.
           </p>
         </div>
@@ -290,7 +258,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
 
       <section className="studio-section">
         <div className="container py-12">
-          <p className="section-kicker text-center">The stack we ship in</p>
+          <p data-animate="section" className="section-kicker text-center">The stack we ship in</p>
           <div
             className="group relative mt-8 overflow-hidden"
             style={{
@@ -300,7 +268,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                 "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
             }}
           >
-            <div className="flex w-max animate-marquee gap-12 group-hover:[animation-play-state:paused]">
+            <div data-animate="marquee" className="flex w-max gap-12">
               {[...stackLogos, ...stackLogos].map((logo, idx) => (
                 <div
                   key={`${logo.name}-${idx}`}
@@ -327,7 +295,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
           <p className="marginalia mt-3">↳ four lanes, one delivery rhythm</p>
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {services.map((service) => (
-              <Card key={service.title} className="h-full shadow-[8px_8px_0_hsl(var(--foreground)/0.12)]">
+              <Card key={service.title} data-animate="card" className="h-full shadow-[8px_8px_0_hsl(var(--foreground)/0.12)]">
                 <CardHeader className="gap-5">
                   <div className="flex size-14 items-center justify-center rounded-2xl border-2 border-border bg-secondary">
                     <Icon icon={service.icon} className="size-8" aria-hidden="true" />
@@ -428,7 +396,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {siteConfig.team.map((member) => (
-              <Card key={member.name} className="h-full">
+              <Card key={member.name} data-animate="card" className="h-full">
                 <CardHeader className="gap-5">
                   {member.photo ? (
                     <div className="relative size-20 overflow-hidden rounded-2xl border-2 border-border bg-background shadow-[7px_7px_0_rgba(16,16,16,0.18)]">
@@ -493,7 +461,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             aria-hidden="true"
             className="dot-matrix animate-drift absolute left-1/2 top-6 h-16 w-16 -translate-x-1/2 opacity-30"
           />
-          <p className="font-accent mx-auto max-w-4xl text-3xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+          <p data-animate="section" className="font-accent mx-auto max-w-4xl text-3xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
             We measure builders by what&apos;s running in production —
             <span className="text-[hsl(var(--luxury))]"> not what&apos;s in a deck.</span>
           </p>
@@ -513,6 +481,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             {outcomeProof.map((proof, idx) => (
               <article
                 key={proof.title}
+                data-animate="panel"
                 className="card-lift relative overflow-hidden rounded-2xl border-2 border-border bg-card shadow-[7px_7px_0_hsl(var(--foreground)/0.16)]"
               >
                 <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-10">
@@ -544,7 +513,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {earlierWorkItems.map((work) => (
-              <Card key={work.title} className="h-full shadow-none">
+              <Card key={work.title} data-animate="card" className="h-full shadow-none">
                 <CardHeader>
                   <Badge variant="outline" className="w-fit">{work.eyebrow}</Badge>
                   <CardTitle className="text-xl">{work.title}</CardTitle>
@@ -558,7 +527,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
 
       <section id="contact-cta" className="studio-section">
         <div className="container py-20">
-          <div className="relative overflow-hidden rounded-[2rem] border-2 border-border bg-secondary p-8 text-center shadow-[10px_10px_0_hsl(var(--foreground)/0.18)] md:p-12">
+          <div data-animate="cta" className="relative overflow-hidden rounded-[2rem] border-2 border-border bg-secondary p-8 text-center shadow-[10px_10px_0_hsl(var(--foreground)/0.18)] md:p-12">
             <div aria-hidden="true" className="dot-matrix absolute right-8 top-8 h-24 w-24 opacity-30" />
             <p className="section-kicker">Let&apos;s talk about ideas</p>
             <h2 className="mx-auto mt-5 max-w-4xl text-5xl font-black uppercase leading-none sm:text-6xl">
@@ -593,15 +562,17 @@ function ProductOrbit() {
   return (
     <div
       data-hero-visual="product-orbit"
+      data-animate="hero-orbit"
       className="relative mx-auto aspect-square w-full max-w-[min(92vw,360px)] sm:max-w-[540px] lg:max-w-[440px] xl:max-w-[480px] 2xl:max-w-[560px]"
     >
       <div aria-hidden="true" className="dot-matrix absolute right-6 top-2 h-32 w-32 opacity-60" />
       <div aria-hidden="true" className="dot-matrix absolute bottom-5 left-0 h-32 w-32 opacity-60" />
-      <div className="absolute inset-[8%] rounded-full border-2 border-border bg-[hsl(var(--luxury))]" />
-      <div className="absolute inset-[20%] rounded-full bg-background/35 blur-2xl" />
+      <div data-animate="hero-orb" className="absolute inset-[8%] rounded-full border-2 border-border bg-[hsl(var(--luxury))]" />
+      <div data-animate="hero-orb" className="absolute inset-[20%] rounded-full bg-background/35 blur-2xl" />
       {screenshots.map((shot) => (
         <div
           key={shot.src}
+          data-animate="hero-shot"
           className={`studio-panel absolute overflow-hidden rounded-2xl bg-card p-2 ${shot.className}`}
         >
           <div className="relative aspect-[16/10] overflow-hidden rounded-xl border-2 border-border bg-muted">
@@ -625,7 +596,7 @@ function SectionHeader({
   inverted?: boolean;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div data-animate="section" className="max-w-3xl">
       <p className={inverted ? "section-kicker text-background" : "section-kicker"}>{kicker}</p>
       <h2 className="mt-4 text-4xl font-black uppercase leading-none sm:text-5xl lg:text-6xl">
         {title}
@@ -649,7 +620,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       href={`/work/${study.slug}`}
       className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      <Card className="h-full overflow-hidden">
+      <Card data-animate="card" className="h-full overflow-hidden">
         <div className="relative aspect-[16/10] border-b-2 border-border bg-muted">
           <Image
             src={study.visual.src}
@@ -698,7 +669,7 @@ function CapabilityBand({
       >
         <div>
           <SectionHeader kicker={eyebrow} title={title} />
-          <ul className="mt-8 flex flex-col gap-4">
+          <ul data-animate="panel" className="mt-8 flex flex-col gap-4">
             {points.map((point) => (
               <li key={point} className="flex gap-3 text-base leading-7 text-muted-foreground">
                 <CheckCircle2 className="mt-1 size-5 flex-none text-[hsl(var(--luxury))]" aria-hidden="true" />
@@ -713,7 +684,7 @@ function CapabilityBand({
             </Link>
           </Button>
         </div>
-        <div className="relative">
+        <div data-animate="image-panel" className="relative">
           <div aria-hidden="true" className="dot-matrix absolute -right-4 -top-6 h-28 w-28 opacity-50" />
           <div className="studio-panel relative overflow-hidden rounded-[2rem] bg-card p-3">
             <div className="relative aspect-[16/11] overflow-hidden rounded-[1.4rem] border-2 border-border bg-muted">

@@ -88,7 +88,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
 
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div className="flex flex-col gap-8">
-            <div>
+            <div data-animate="section">
               <div className="mb-5 flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className="rounded-md">
                   {study.eyebrow}
@@ -124,7 +124,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="studio-panel rounded-[2rem] bg-muted p-3">
+            <div data-animate="image-panel" className="studio-panel rounded-[2rem] bg-muted p-3">
               <div className="relative aspect-[16/11] overflow-hidden rounded-[1.35rem] border-2 border-border">
                 <Image
                   src={study.visual.src}
@@ -137,7 +137,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
               </div>
             </div>
 
-            <Card className="shadow-none">
+            <Card data-animate="card" className="shadow-none">
               <CardHeader>
                 <CardTitle>Links and sources</CardTitle>
                 <CardDescription>
@@ -180,7 +180,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
               </CardContent>
             </Card>
 
-            <Card className="shadow-none">
+            <Card data-animate="card" className="shadow-none">
               <CardHeader>
                 <CardTitle>Stack and services</CardTitle>
                 <CardDescription>
@@ -212,7 +212,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
             </Card>
 
             {study.quote ? (
-              <Card className="shadow-none">
+              <Card data-animate="card" className="shadow-none">
                 <CardContent className="p-6">
                   <blockquote className="flex flex-col gap-4">
                     <p className="font-accent text-4xl font-bold leading-none">
@@ -228,7 +228,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start gap-6 border-t-2 border-border pt-10 md:flex-row md:items-center md:justify-between">
+        <div data-animate="cta" className="mt-16 flex flex-col items-start gap-6 border-t-2 border-border pt-10 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="text-3xl font-black uppercase leading-none">
               Want this shape of project?
@@ -252,7 +252,7 @@ export default async function WorkDetailPage({ params }: { params: Params }) {
 
 function InfoCard({ title, text }: { title: string; text: string }) {
   return (
-    <Card className="shadow-none">
+    <Card data-animate="card" className="shadow-none">
       <CardHeader>
         <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>

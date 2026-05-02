@@ -209,6 +209,14 @@
     -webkit-text-stroke: 2px hsl(var(--foreground));
     letter-spacing: -0.04em;
   }
+
+  [data-animate],
+  [data-chat-panel],
+  [data-chat-message],
+  [data-chat-prompt],
+  [data-chat-composer] {
+    transform-origin: center;
+  }
 }
 
 @layer utilities {
@@ -244,5 +252,26 @@
   .card-lift:hover {
     transform: translateY(-4px);
     box-shadow: 11px 11px 0 hsl(var(--foreground) / 0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.001ms !important;
+    }
+
+    [data-animate],
+    [data-chat-trigger],
+    [data-chat-panel],
+    [data-chat-message],
+    [data-chat-prompt],
+    [data-chat-composer] {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
   }
 }

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { SiteMotion } from "@/components/animation/site-motion";
 import { siteConfig } from "@/config/site";
 
 const sans = Jost({
@@ -80,12 +81,14 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <ChatWidget />
+          <SiteMotion>
+            <div className="relative flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+            <ChatWidget />
+          </SiteMotion>
         </ThemeProvider>
       </body>
     </html>

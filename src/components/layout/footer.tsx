@@ -22,7 +22,7 @@ export function Footer() {
 
       <div className="container relative py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-          <div className="max-w-2xl">
+          <div data-animate="section" className="max-w-2xl">
             <p className="section-kicker text-[hsl(var(--luxury))]">The endplate</p>
             <h2 className="endplate-heading mt-5 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-[6rem]">
               {siteConfig.name}
@@ -64,7 +64,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2">
+          <div data-animate="panel" className="grid gap-8 sm:grid-cols-2">
             <div>
               <h3 className="section-kicker">Navigate</h3>
               <nav className="mt-5 flex flex-col gap-3 text-sm">
@@ -110,7 +110,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t-2 border-border pt-6 text-xs font-bold uppercase tracking-[0.04em] text-muted-foreground md:flex-row md:items-center md:justify-between">
+        <div data-animate="panel" className="mt-14 flex flex-col gap-3 border-t-2 border-border pt-6 text-xs font-bold uppercase tracking-[0.04em] text-muted-foreground md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <LogoMark className="size-7" />
             <p>

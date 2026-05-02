@@ -90,8 +90,8 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       <article className="studio-section">
         <div className="container py-16">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-8">
-            <div className="studio-panel mb-8 overflow-hidden rounded-[2rem] bg-muted p-3">
+          <div data-animate="section" className="mb-8">
+            <div data-animate="image-panel" className="studio-panel mb-8 overflow-hidden rounded-[2rem] bg-muted p-3">
               <div className="relative aspect-video overflow-hidden rounded-[1.35rem] border-2 border-border">
               {post.image ? (
                 <Image
@@ -122,7 +122,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
               </div>
             </div>
           </div>
-          <div className="prose prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-a:font-black prose-a:text-foreground prose-a:underline dark:prose-invert">
+          <div data-animate="panel" className="prose prose-lg max-w-none prose-headings:font-black prose-headings:uppercase prose-a:font-black prose-a:text-foreground prose-a:underline dark:prose-invert">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
         </div>

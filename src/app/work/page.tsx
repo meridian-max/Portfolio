@@ -19,7 +19,7 @@ export default function WorkPage() {
   return (
     <div>
       <section className="studio-section section-wash section-wash-violet">
-        <div className="container relative py-16 text-center">
+        <div data-animate="section" className="container relative py-16 text-center">
           <div aria-hidden="true" className="dot-matrix animate-drift absolute left-4 top-12 h-24 w-24 opacity-50" />
           <p className="section-kicker">Selected work</p>
           <h1 className="outline-heading mx-auto mt-5 max-w-5xl text-6xl font-black uppercase leading-none sm:text-7xl">
@@ -41,7 +41,7 @@ export default function WorkPage() {
 
       <section className="studio-section">
         <div className="container py-16">
-          <div className="max-w-3xl">
+          <div data-animate="section" className="max-w-3xl">
             <p className="section-kicker">Proof in the open</p>
             <h2 className="mt-4 text-4xl font-black uppercase leading-none sm:text-5xl">
               Open-source builds we ship between client work.
@@ -53,7 +53,7 @@ export default function WorkPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {earlierWorkItems.map((item) => (
-              <Card key={item.title} className="h-full">
+              <Card key={item.title} data-animate="card" className="h-full">
                 <CardHeader>
                   <div className="flex items-center justify-between gap-3">
                     <Badge variant="outline">{item.eyebrow}</Badge>
@@ -94,7 +94,7 @@ export default function WorkPage() {
 
       <section className="studio-section">
         <div className="container py-16">
-          <div className="rounded-[2rem] border-2 border-border bg-secondary p-8 shadow-[8px_8px_0_hsl(var(--foreground)/0.18)] md:flex md:items-center md:justify-between md:gap-8">
+          <div data-animate="cta" className="rounded-[2rem] border-2 border-border bg-secondary p-8 shadow-[8px_8px_0_hsl(var(--foreground)/0.18)] md:flex md:items-center md:justify-between md:gap-8">
             <div className="max-w-2xl">
               <p className="section-kicker">Have a project in mind?</p>
               <h2 className="mt-3 text-4xl font-black uppercase leading-none">
