@@ -12,7 +12,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Portfolio work from Meridian Works — websites, SaaS, AI systems, automation, and deployment platforms.",
+    "Portfolio work from GreedUp — websites, SaaS, AI systems, automation, and deployment platforms.",
 };
 
 export default function WorkPage() {
@@ -103,7 +103,7 @@ export default function WorkPage() {
             </div>
             <Button asChild className="mt-6 md:mt-0">
               <Link href={siteConfig.contactHref}>
-                Contact Meridian Works
+                Contact GreedUp
                 <ExternalLink data-icon="inline-end" />
               </Link>
             </Button>

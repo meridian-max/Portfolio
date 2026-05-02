@@ -173,23 +173,26 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             className="relative z-10 max-w-2xl"
           >
             <motion.p variants={item} className="section-kicker">
-              Product engineering studio · <span className="text-[hsl(var(--luxury))]">since 2023</span>
+              Hello world, <span className="text-[hsl(var(--luxury))]">we are</span>
             </motion.p>
             <motion.h1
               variants={item}
-              className="outline-heading animate-mask-reveal mt-6 text-5xl font-black uppercase leading-[0.92] sm:text-6xl lg:text-[5.25rem]"
+              className="outline-heading animate-mask-reveal mt-6 text-6xl font-black uppercase leading-[0.9] sm:text-7xl lg:text-8xl"
             >
-              Software, AI, and growth surfaces — shipped before the kickoff slide is dry.
+              {siteConfig.name}
             </motion.h1>
             <motion.p variants={item} className="handwritten mt-5 text-foreground">
-              ↳ {siteConfig.name}
+              A product engineering studio
+              <span className="ml-3 inline-block align-middle text-base text-[hsl(var(--luxury))]">
+                ↳ since 2023
+              </span>
             </motion.p>
             <motion.p
               variants={item}
-              className="mt-7 max-w-xl text-lg leading-8 text-muted-foreground"
+              className="mt-9 max-w-xl text-xl leading-9 text-muted-foreground"
             >
-              Three senior builders helping founders ship websites, AI systems, SaaS, and the
-              deployment paths that survive real users.
+              Three senior builders helping founders ship websites, AI systems,
+              SaaS products, automations, and deployment paths that survive real users.
             </motion.p>
 
             <motion.ul

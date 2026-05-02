@@ -5,7 +5,7 @@ type LogoMarkProps = {
   ariaLabel?: string;
 };
 
-export function LogoMark({ className, ariaLabel = "Meridian Works" }: LogoMarkProps) {
+export function LogoMark({ className, ariaLabel = "GreedUp" }: LogoMarkProps) {
   return (
     <svg
       viewBox="0 0 64 64"

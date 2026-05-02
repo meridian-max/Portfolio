@@ -15,7 +15,7 @@ import { getBlogPosts } from "@/lib/mdx";
 export const metadata: Metadata = {
   title: "Notes",
   description:
-    "Engineering and product notes from Meridian Works — written from the products we have shipped.",
+    "Engineering and product notes from GreedUp — written from the products we have shipped.",
 };
 
 export default async function BlogPage() {
