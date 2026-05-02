@@ -196,6 +196,13 @@
     @apply font-accent text-xl font-bold text-foreground/70;
   }
 
+  /* Adaptive-contrast text — inverts to stay readable over any solid background.
+     Used on fixed/sticky elements that float over both light and dark sections. */
+  .adaptive-contrast {
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
   /* Footer endplate — oversized brand mark dressing. */
   .endplate-heading {
     color: transparent;

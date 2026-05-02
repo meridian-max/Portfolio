@@ -116,7 +116,7 @@ export function ChatWidget() {
       >
         <span
           aria-hidden="true"
-          className="hidden font-accent text-xl font-bold leading-tight text-foreground/70 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
+          className="adaptive-contrast hidden font-accent text-xl font-bold leading-tight 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
         >
           ↳ a real reply within
           <br />
