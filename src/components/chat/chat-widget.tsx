@@ -110,10 +110,13 @@ export function ChatWidget() {
   return (
     <>
       {/* Trigger — studio plaque, not a generic helpdesk circle */}
-      <div className="fixed bottom-6 right-6 z-40 flex items-end gap-3">
+      <div
+        data-chat-trigger="studio-intake"
+        className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-40 flex max-w-[calc(100vw-2rem)] items-end gap-3 sm:right-5 lg:right-6 lg:bottom-6 2xl:right-8"
+      >
         <span
           aria-hidden="true"
-          className="hidden font-accent text-xl font-bold leading-tight text-foreground/70 sm:block sm:max-w-[10rem] sm:translate-y-1 sm:text-right"
+          className="hidden font-accent text-xl font-bold leading-tight text-foreground/70 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
         >
           ↳ a real reply within
           <br />
@@ -123,11 +126,12 @@ export function ChatWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open studio intake desk"
-          className="group relative inline-flex items-center gap-2.5 rounded-2xl border-2 border-border bg-background p-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-4"
+          className="group relative inline-flex size-13 items-center justify-center rounded-2xl border-2 border-border bg-background p-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:size-auto xl:min-h-13 xl:justify-start xl:gap-2.5 xl:px-4"
         >
           <LogoMark className="size-6" />
-          <span className="hidden leading-none sm:inline">Ask the studio</span>
-          <span className="relative ml-0.5 flex size-2.5">
+          <span className="hidden leading-none xl:inline 2xl:hidden">Ask</span>
+          <span className="hidden leading-none 2xl:inline">Ask the studio</span>
+          <span className="relative ml-0.5 hidden size-2.5 xl:flex">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-75" />
             <span className="relative inline-flex size-2.5 rounded-full bg-[hsl(var(--luxury))]" />
           </span>
@@ -137,58 +141,60 @@ export function ChatWidget() {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
           side="right"
-          className="section-wash section-wash-amber flex w-full flex-col gap-0 border-l-2 border-border bg-background p-0 sm:max-w-md"
+          className="section-wash section-wash-amber flex h-dvh max-h-dvh w-full max-w-full flex-col gap-0 overflow-hidden border-l-2 border-border bg-background p-0 sm:max-w-md"
         >
           {/* Header — editorial intake desk */}
-          <SheetHeader className="relative overflow-hidden border-b-2 border-border bg-card px-6 py-6">
+          <SheetHeader className="relative shrink-0 overflow-hidden border-b-2 border-border bg-card px-4 py-4 pr-12 text-left sm:px-6 sm:py-5">
             <div
               aria-hidden="true"
               className="dot-matrix animate-drift pointer-events-none absolute -right-3 -top-3 h-24 w-24 opacity-40"
             />
-            <div className="relative flex items-center gap-3">
-              <div className="flex size-12 items-center justify-center rounded-2xl border-2 border-border bg-background">
-                <LogoMark className="size-7" />
+            <div className="relative flex min-w-0 items-center gap-3">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl border-2 border-border bg-background sm:size-12">
+                <LogoMark className="size-6 sm:size-7" />
               </div>
-              <div>
-                <SheetTitle className="outline-heading text-2xl font-black uppercase leading-none">
+              <div className="min-w-0">
+                <SheetTitle className="text-xl font-black uppercase leading-none tracking-0 text-foreground sm:text-2xl">
                   Intake desk
                 </SheetTitle>
-                <SheetDescription className="font-accent mt-1 text-lg font-bold leading-none text-foreground/70">
+                <SheetDescription className="font-accent mt-1 text-base font-bold leading-none text-foreground/70 sm:text-lg">
                   scoped to {siteConfig.name}
                 </SheetDescription>
               </div>
             </div>
-            <div className="relative mt-4 flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.12em] text-foreground/70">
+            <div className="relative mt-4 flex min-w-0 items-center gap-2 text-[10px] font-black uppercase tracking-[0.12em] text-foreground/70 sm:text-[11px]">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-60" />
                 <span className="relative inline-flex size-2 rounded-full bg-[hsl(var(--luxury))]" />
               </span>
-              <span>{streaming ? "Composing reply…" : "Live · staffed by AI + humans"}</span>
+              <span className="min-w-0 break-words">
+                {streaming ? "Composing reply…" : "Live · staffed by AI + humans"}
+              </span>
             </div>
           </SheetHeader>
 
           {/* Conversation */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-6">
-            <ul className="flex flex-col gap-5">
+          <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6">
+            <ul className="flex flex-col gap-4 sm:gap-5">
               {messages.map((msg) => (
                 <li
                   key={msg.id}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "assistant" ? (
-                    <div className="flex max-w-[88%] gap-2">
+                    <div className="flex max-w-[calc(100%-1rem)] gap-2 sm:max-w-[88%]">
                       <span
                         aria-hidden="true"
                         className="select-none pt-1 text-xl font-black leading-none text-[hsl(var(--luxury))]"
                       >
                         ↳
                       </span>
-                      <div className="whitespace-pre-wrap rounded-2xl rounded-tl-sm border-2 border-border bg-card px-4 py-3 text-sm leading-6 text-foreground">
+                      <div className="min-w-0 whitespace-pre-wrap break-words rounded-2xl rounded-tl-sm border-2 border-border bg-card px-4 py-3 text-sm leading-6 text-foreground">
                         {msg.content || (streaming ? <BlinkCaret /> : "")}
                       </div>
                     </div>
                   ) : (
-                    <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm border-2 border-border bg-[hsl(var(--luxury))] px-4 py-3 text-sm font-bold leading-6 text-foreground shadow-[3px_3px_0_hsl(var(--foreground)/0.18)]">
+                    <div className="max-w-[85%] whitespace-pre-wrap break-words rounded-2xl rounded-tr-sm border-2 border-border bg-[hsl(var(--luxury))] px-4 py-3 text-sm font-bold leading-6 text-foreground shadow-[3px_3px_0_hsl(var(--foreground)/0.18)]">
                       {msg.content}
                     </div>
                   )}
@@ -205,12 +211,12 @@ export function ChatWidget() {
                       <button
                         type="button"
                         onClick={() => void send(prompt.text)}
-                        className="group flex w-full items-start gap-3 rounded-xl border-2 border-border bg-background px-3.5 py-3 text-left shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_hsl(var(--foreground)/0.18)]"
+                        className="group flex w-full min-w-0 items-start gap-3 rounded-xl border-2 border-border bg-background px-3.5 py-3 text-left shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_hsl(var(--foreground)/0.18)]"
                       >
-                        <span className="font-accent text-2xl font-bold leading-none text-[hsl(var(--luxury))]">
+                        <span className="shrink-0 font-accent text-2xl font-bold leading-none text-[hsl(var(--luxury))]">
                           {prompt.n}
                         </span>
-                        <span className="text-sm font-bold leading-6 text-foreground">
+                        <span className="min-w-0 break-words text-sm font-bold leading-6 text-foreground">
                           {prompt.text}
                         </span>
                       </button>
@@ -230,7 +236,7 @@ export function ChatWidget() {
           {/* Composer */}
           <form
             onSubmit={handleSubmit}
-            className="border-t-2 border-border bg-background px-4 py-4"
+            className="shrink-0 border-t-2 border-border bg-background px-4 py-3 sm:py-4"
           >
             <div className="flex items-end gap-2 rounded-2xl border-2 border-border bg-card p-2 shadow-[4px_4px_0_hsl(var(--foreground)/0.16)] focus-within:border-[hsl(var(--luxury))]">
               <textarea
@@ -245,7 +251,7 @@ export function ChatWidget() {
                 placeholder={streaming ? "Composing reply…" : "Tell us what you're shipping…"}
                 rows={1}
                 disabled={streaming}
-                className="min-h-[2.5rem] flex-1 resize-none bg-transparent px-2 py-1 text-sm leading-6 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60"
+                className="min-h-[2.5rem] min-w-0 flex-1 resize-none bg-transparent px-2 py-1 text-sm leading-6 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60"
               />
               <button
                 type="submit"
@@ -256,7 +262,7 @@ export function ChatWidget() {
                 <ArrowUp className="size-4" aria-hidden="true" />
               </button>
             </div>
-            <p className="font-accent mt-3 text-base font-bold leading-tight text-foreground/70">
+            <p className="font-accent mt-3 break-words text-sm font-bold leading-snug text-foreground/70 sm:text-base">
               Built by {siteConfig.name} · for anything load-bearing, email{" "}
               <a
                 href={`mailto:${siteConfig.email}`}

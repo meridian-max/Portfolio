@@ -164,7 +164,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
   return (
     <div className="overflow-hidden">
       <section className="studio-section">
-        <div className="container relative grid items-center gap-10 py-14 lg:grid-cols-[0.86fr_1.14fr] lg:py-16">
+        <div className="container relative grid items-center gap-10 py-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-8 lg:py-14 xl:gap-12 2xl:py-16">
           <div aria-hidden="true" className="dot-matrix animate-drift absolute left-0 top-24 h-28 w-28 opacity-50" />
           <motion.div
             variants={container}
@@ -229,31 +229,31 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             </motion.div>
           </motion.div>
 
-          <div className="relative">
-            <ProductOrbit />
+          <div className="relative min-w-0">
             <motion.aside
               variants={container}
               initial="hidden"
               animate="show"
               aria-label="Studio status"
-              className="pointer-events-none absolute -right-4 top-2 hidden flex-col gap-3 2xl:flex"
+              className="mb-4 hidden flex-wrap items-center justify-center gap-2 2xl:flex"
             >
               {statusRail.map((entry) => (
                 <motion.div
                   key={entry.label}
                   variants={railItem}
-                  className="pointer-events-auto flex items-center gap-3"
+                  className="flex items-center gap-2"
                 >
-                  <span className="font-accent text-2xl font-bold text-[hsl(var(--luxury))]">
+                  <span className="font-accent text-xl font-bold leading-none text-[hsl(var(--luxury))]">
                     {entry.label}
                   </span>
-                  <span className="h-px w-6 bg-foreground/40" aria-hidden="true" />
+                  <span className="h-px w-5 bg-foreground/40" aria-hidden="true" />
                   <span className="rounded-full border-2 border-border bg-card px-3 py-1 text-[11px] font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)]">
                     {entry.value}
                   </span>
                 </motion.div>
               ))}
             </motion.aside>
+            <ProductOrbit />
           </div>
         </div>
       </section>
@@ -588,7 +588,10 @@ function ProductOrbit() {
   ];
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[600px]">
+    <div
+      data-hero-visual="product-orbit"
+      className="relative mx-auto aspect-square w-full max-w-[min(92vw,360px)] sm:max-w-[540px] lg:max-w-[440px] xl:max-w-[480px] 2xl:max-w-[560px]"
+    >
       <div aria-hidden="true" className="dot-matrix absolute right-6 top-2 h-32 w-32 opacity-60" />
       <div aria-hidden="true" className="dot-matrix absolute bottom-5 left-0 h-32 w-32 opacity-60" />
       <div className="absolute inset-[8%] rounded-full border-2 border-border bg-[hsl(var(--luxury))]" />
@@ -603,16 +606,6 @@ function ProductOrbit() {
           </div>
         </div>
       ))}
-      <div className="studio-panel absolute bottom-[18%] left-0 rounded-full bg-card px-5 py-3">
-        <p className="text-xl font-black uppercase leading-tight text-foreground">
-          5 production products
-        </p>
-      </div>
-      <div className="studio-panel absolute bottom-[10%] right-0 rounded-full bg-card px-5 py-3">
-        <p className="text-xl font-black uppercase leading-tight text-foreground">
-          40+ open repos
-        </p>
-      </div>
     </div>
   );
 }
@@ -735,4 +728,3 @@ function CapabilityBand({
     </section>
   );
 }
-

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 150" role="img" aria-labelledby="title desc" fill="none">
+  <title id="title">GreedUp G Arrow Mark</title>
+  <desc id="desc">A black curved G mark with a purple up-right arrow through the center.</desc>
+  <path d="M153 23H94C55 23 27 52 27 90c0 40 31 70 72 70 26 0 49-12 63-31" stroke="#1d1b26" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M27 113c22 34 78 47 124 14" stroke="#1d1b26" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M101 65h58c3.4 0 6 2.6 6 6v58h-26V99l-47 47H56l66-66h-21Z" fill="#9900ff"/>
+</svg>
