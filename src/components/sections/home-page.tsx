@@ -52,7 +52,7 @@ const services = [
 const heroMetrics = [
   { value: "5", label: "production products" },
   { value: "40+", label: "open repos" },
-  { value: "3", label: "senior builders" },
+  { value: "Small team", label: "senior builders" },
   { value: "2 days", label: "reply time" },
 ];
 
@@ -191,7 +191,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
               variants={item}
               className="mt-9 max-w-xl text-xl leading-9 text-muted-foreground"
             >
-              Three senior builders helping founders ship websites, AI systems,
+              A small team of senior builders helping founders ship websites, AI systems,
               SaaS products, automations, and deployment paths that survive real users.
             </motion.p>
 
@@ -283,7 +283,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             ))}
           </div>
           <p className="font-accent mt-4 text-center text-2xl font-bold leading-none text-background/80 sm:text-3xl">
-            ↳ just three senior builders shipping the work.
+            ↳ just a small team of senior builders shipping the work.
           </p>
         </div>
       </section>
@@ -423,7 +423,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
         <div className="container py-20">
           <SectionHeader
             kicker="Team"
-            title="Three specialists, one delivery rhythm."
+            title="A small team, one delivery rhythm."
             subtitle="You work directly with the people designing the system and writing the code."
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">

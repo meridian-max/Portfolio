@@ -105,7 +105,7 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle>Team</CardTitle>
               <CardDescription>
-                The three people you will work with directly.
+                The small team you will work with directly.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
