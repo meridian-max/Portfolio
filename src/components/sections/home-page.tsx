@@ -587,7 +587,7 @@ function ProductOrbit() {
   const screenshots = [
     { src: "/work/bookflow.png", alt: "BookFlow product screenshot", className: "left-5 top-16 w-[48%] rotate-[-8deg]" },
     { src: "/work/meetfuture.png", alt: "MeetFuture product screenshot", className: "right-4 top-32 w-[46%] rotate-[8deg]" },
-    { src: "/work/ghostcollab.png", alt: "GhostCollab product screenshot", className: "bottom-16 left-1/2 w-[52%] -translate-x-1/2 rotate-[-2deg]" },
+    { src: "/work/meeting-assistant.png", alt: "Meeting Assistant product screenshot", className: "bottom-16 left-1/2 w-[52%] -translate-x-1/2 rotate-[-2deg]" },
   ];
 
   return (

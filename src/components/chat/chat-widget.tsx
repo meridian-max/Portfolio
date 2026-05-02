@@ -262,7 +262,7 @@ export function ChatWidget() {
                 <ArrowUp className="size-4" aria-hidden="true" />
               </button>
             </div>
-            <p className="font-accent mt-3 break-words text-sm font-bold leading-snug text-foreground/70 sm:text-base [@media(max-height:760px)]:hidden">
+            <p className="font-accent mt-3 break-words text-sm font-bold leading-snug text-foreground/70 sm:text-base">
               Built by {siteConfig.name} · for anything load-bearing, email{" "}
               <a
                 href={`mailto:${siteConfig.email}`}

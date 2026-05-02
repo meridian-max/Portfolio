@@ -128,6 +128,7 @@ export const caseStudies: CaseStudy[] = [
     proofLevel: "public-repo",
     evidenceNote:
       "The public repo, requirements.txt, README, and build-folder link provide the strongest published proof for this desktop tool.",
+    featured: true,
   },
   {
     slug: "goal-tracker",
@@ -186,7 +187,6 @@ export const caseStudies: CaseStudy[] = [
     proofLevel: "public-site",
     evidenceNote:
       "The live site and its public title and description are verifiable. Deeper implementation details are not publicly documented.",
-    featured: true,
   },
 ];
 
