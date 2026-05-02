@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Contact",
   description:
-    "Email GreedUp and prepare a project note without a fake booking flow or hidden backend.",
+    "Send a project note to GreedUp. Reply within one business day.",
 };
 
 export default function ContactLayout({

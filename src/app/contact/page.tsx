@@ -20,44 +20,83 @@ type FormState = {
   email: string;
   project: string;
   message: string;
+  botcheck: string;
 };
+
+type SubmitState = "idle" | "sending" | "success" | "error";
 
 const initialState: FormState = {
   name: "",
   email: "",
   project: "",
   message: "",
+  botcheck: "",
 };
+
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "500fc247-c97a-4b2e-a097-fc4afb60c469";
 
 export default function ContactPage() {
   const [form, setForm] = useState<FormState>(initialState);
-  const [status, setStatus] = useState<string>("");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [statusMessage, setStatusMessage] = useState<string>("");
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!form.name || !form.email || !form.message) {
-      setStatus("Add your name, email, and project note before sending.");
+      setSubmitState("error");
+      setStatusMessage("Add your name, email, and project note before sending.");
       return;
     }
 
-    const subject = encodeURIComponent(`Project inquiry from ${form.name}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name}`,
-        `Email: ${form.email}`,
-        `Project type: ${form.project || "Not specified"}`,
-        "",
-        form.message,
-      ].join("\n"),
-    );
+    setSubmitState("sending");
+    setStatusMessage("Sending your project note…");
 
-    setStatus(`Opening your email app with a draft addressed to ${siteConfig.primaryContactName}.`);
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Project inquiry from ${form.name}`,
+          from_name: `${siteConfig.name} contact form`,
+          name: form.name,
+          email: form.email,
+          project_type: form.project || "Not specified",
+          message: form.message,
+          botcheck: form.botcheck,
+        }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (response.ok && data.success) {
+        setSubmitState("success");
+        setStatusMessage(
+          `Project note sent. ${siteConfig.primaryContactName} will reply within one business day.`,
+        );
+        setForm(initialState);
+        return;
+      }
+
+      throw new Error(data.message ?? `Request failed (${response.status}).`);
+    } catch (err) {
+      setSubmitState("error");
+      const fallback =
+        err instanceof Error ? err.message : "Something went wrong while sending.";
+      setStatusMessage(`${fallback} You can also email ${siteConfig.email} directly.`);
+    }
   }
 
   return (
@@ -138,11 +177,31 @@ export default function ContactPage() {
           <CardHeader>
             <CardTitle>Project brief</CardTitle>
             <CardDescription>
-              Fill this in and we will open your email app with a prefilled draft. No data is stored.
+              Fill this in and the note lands in our inbox directly. Reply within one business day.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+              {/* Honeypot — hidden from real users, bots tend to fill every field */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                checked={Boolean(form.botcheck)}
+                onChange={(event) =>
+                  updateField("botcheck", event.target.checked ? "true" : "")
+                }
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  width: 1,
+                  height: 1,
+                  opacity: 0,
+                }}
+              />
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="flex flex-col gap-2 text-sm font-medium" htmlFor="name">
                   Name
@@ -153,6 +212,7 @@ export default function ContactPage() {
                     value={form.name}
                     onChange={(event) => updateField("name", event.target.value)}
                     placeholder="Your name"
+                    disabled={submitState === "sending"}
                   />
                 </label>
                 <label className="flex flex-col gap-2 text-sm font-medium" htmlFor="email">
@@ -165,6 +225,7 @@ export default function ContactPage() {
                     value={form.email}
                     onChange={(event) => updateField("email", event.target.value)}
                     placeholder="you@example.com"
+                    disabled={submitState === "sending"}
                   />
                 </label>
               </div>
@@ -177,6 +238,7 @@ export default function ContactPage() {
                   value={form.project}
                   onChange={(event) => updateField("project", event.target.value)}
                   placeholder="Website, booking SaaS, AI flow, automation, deployment"
+                  disabled={submitState === "sending"}
                 />
               </label>
 
@@ -189,18 +251,36 @@ export default function ContactPage() {
                   onChange={(event) => updateField("message", event.target.value)}
                   placeholder="Tell us about the outcome, audience, constraints, timeline, and any public proof or links you already have."
                   className="min-h-40 resize-y"
+                  disabled={submitState === "sending"}
                 />
               </label>
 
-              {status ? (
-                <p className="text-sm text-muted-foreground" aria-live="polite">
-                  {status}
+              {statusMessage ? (
+                <p
+                  aria-live="polite"
+                  className={
+                    submitState === "success"
+                      ? "rounded-xl border-2 border-[hsl(var(--luxury))] bg-[hsl(var(--luxury))]/10 px-4 py-3 text-sm font-bold text-foreground"
+                      : submitState === "error"
+                        ? "rounded-xl border-2 border-destructive/40 bg-destructive/5 px-4 py-3 text-sm font-bold text-destructive"
+                        : "text-sm text-muted-foreground"
+                  }
+                >
+                  {statusMessage}
                 </p>
               ) : null}
 
-              <Button type="submit" className="w-full sm:w-fit">
+              <Button
+                type="submit"
+                className="w-full sm:w-fit"
+                disabled={submitState === "sending"}
+              >
                 <Send data-icon="inline-start" />
-                Prepare email draft
+                {submitState === "sending"
+                  ? "Sending…"
+                  : submitState === "success"
+                    ? "Sent"
+                    : "Send project note"}
               </Button>
             </form>
           </CardContent>
