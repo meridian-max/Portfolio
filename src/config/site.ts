@@ -49,9 +49,8 @@ export const siteConfig = {
     { href: "/contact", label: "Contact" },
   ],
   socialLinks: [
-    { label: "GitHub", href: "https://github.com/jigyasu2004" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
-    { label: "Email", href: "mailto:nishantnischal25@gmail.com" },
+    { label: "Email", href: "mailto:contact@greedup.com" },
   ],
   team: [
     {
