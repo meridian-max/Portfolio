@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Link from "next/link";
 import { ExternalLink, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -128,10 +127,10 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <Button asChild size="lg">
-                <Link href={`mailto:${siteConfig.email}`}>
+                <a href={`mailto:${siteConfig.email}`}>
                   <Mail data-icon="inline-start" />
                   Email {siteConfig.primaryContactName}
-                </Link>
+                </a>
               </Button>
               <p className="text-sm leading-6 text-muted-foreground">
                 Use this for scope, urgency, tech constraints, stack questions, or whether the
@@ -152,20 +151,23 @@ export default function ContactPage() {
                 <div key={member.name}>
                   <p className="text-sm font-black text-foreground">{member.name}</p>
                   <div className="mt-2 flex flex-wrap gap-3">
-                    {member.links.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                        rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                        className="inline-flex items-center gap-2 text-sm text-muted-foreground underline underline-offset-4"
-                      >
-                        {link.label}
-                        {!link.href.startsWith("mailto:") ? (
-                          <ExternalLink className="size-3" aria-hidden="true" />
-                        ) : null}
-                      </Link>
-                    ))}
+                    {member.links.map((link) => {
+                      const isMailto = link.href.startsWith("mailto:");
+                      return (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          target={isMailto ? undefined : "_blank"}
+                          rel={isMailto ? undefined : "noreferrer"}
+                          className="inline-flex items-center gap-2 text-sm text-muted-foreground underline underline-offset-4"
+                        >
+                          {link.label}
+                          {!isMailto ? (
+                            <ExternalLink className="size-3" aria-hidden="true" />
+                          ) : null}
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               ))}

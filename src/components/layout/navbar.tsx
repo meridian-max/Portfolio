@@ -29,7 +29,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
           {siteConfig.nav.map((route) => (
             <Link
               key={route.href}
@@ -41,7 +41,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <ModeToggle />
           <Button asChild size="sm">
             <Link href={siteConfig.contactHref}>
@@ -51,7 +51,7 @@ export function Navbar() {
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <ModeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <Button

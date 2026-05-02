@@ -126,12 +126,12 @@ export function ChatWidget() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open studio intake desk"
-          className="group relative inline-flex size-13 items-center justify-center rounded-2xl border-2 border-border bg-background p-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:size-auto xl:min-h-13 xl:justify-start xl:gap-2.5 xl:px-4"
+          className="group relative inline-flex size-[3.25rem] items-center justify-center rounded-2xl border-2 border-border bg-background p-3 text-sm font-black uppercase tracking-[0.08em] text-foreground shadow-[5px_5px_0_hsl(var(--foreground)/0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_hsl(var(--foreground)/0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-[1440px]:size-auto min-[1440px]:min-h-[3.25rem] min-[1440px]:justify-start min-[1440px]:gap-2.5 min-[1440px]:px-4"
         >
           <LogoMark className="size-6" />
-          <span className="hidden leading-none xl:inline 2xl:hidden">Ask</span>
+          <span className="hidden leading-none min-[1440px]:inline 2xl:hidden">Ask</span>
           <span className="hidden leading-none 2xl:inline">Ask the studio</span>
-          <span className="relative ml-0.5 hidden size-2.5 xl:flex">
+          <span className="relative ml-0.5 hidden size-2.5 min-[1440px]:flex">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--luxury))] opacity-75" />
             <span className="relative inline-flex size-2.5 rounded-full bg-[hsl(var(--luxury))]" />
           </span>
@@ -154,7 +154,7 @@ export function ChatWidget() {
                 <LogoMark className="size-6 sm:size-7" />
               </div>
               <div className="min-w-0">
-                <SheetTitle className="text-xl font-black uppercase leading-none tracking-0 text-foreground sm:text-2xl">
+                <SheetTitle className="text-xl font-black uppercase leading-none tracking-normal text-foreground sm:text-2xl">
                   Intake desk
                 </SheetTitle>
                 <SheetDescription className="font-accent mt-1 text-base font-bold leading-none text-foreground/70 sm:text-lg">

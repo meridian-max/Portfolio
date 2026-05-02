@@ -461,17 +461,20 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                     ))}
                   </ul>
                   <div className="mt-auto flex flex-wrap gap-2">
-                    {member.links.map((link) => (
-                      <Button key={link.href} asChild size="sm" variant="outline">
-                        <Link
-                          href={link.href}
-                          target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                          rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                        >
-                          {link.label}
-                        </Link>
-                      </Button>
-                    ))}
+                    {member.links.map((link) => {
+                      const isMailto = link.href.startsWith("mailto:");
+                      return (
+                        <Button key={link.href} asChild size="sm" variant="outline">
+                          <a
+                            href={link.href}
+                            target={isMailto ? undefined : "_blank"}
+                            rel={isMailto ? undefined : "noreferrer"}
+                          >
+                            {link.label}
+                          </a>
+                        </Button>
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>

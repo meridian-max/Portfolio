@@ -47,17 +47,20 @@ export function Footer() {
               </span>
             </div>
             <div className="mt-10 flex flex-wrap gap-3">
-              {siteConfig.socialLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                  className="rounded-full border-2 border-border bg-card px-3 py-1 text-xs font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] transition hover:-translate-y-0.5 hover:bg-accent"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {siteConfig.socialLinks.map((link) => {
+                const isMailto = link.href.startsWith("mailto:");
+                return (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target={isMailto ? undefined : "_blank"}
+                    rel={isMailto ? undefined : "noreferrer"}
+                    className="rounded-full border-2 border-border bg-card px-3 py-1 text-xs font-black uppercase tracking-[0.06em] shadow-[3px_3px_0_hsl(var(--foreground)/0.14)] transition hover:-translate-y-0.5 hover:bg-accent"
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -85,17 +88,20 @@ export function Footer() {
                     <p className="text-sm font-black text-foreground">{member.name}</p>
                     <p className="mt-0.5 text-xs text-muted-foreground">{member.role}</p>
                     <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                      {member.links.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                          rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                          className="link-slide w-fit"
-                        >
-                          {link.label}
-                        </Link>
-                      ))}
+                      {member.links.map((link) => {
+                        const isMailto = link.href.startsWith("mailto:");
+                        return (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target={isMailto ? undefined : "_blank"}
+                            rel={isMailto ? undefined : "noreferrer"}
+                            className="link-slide w-fit"
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
