@@ -25,7 +25,7 @@ export const siteConfig = {
     "An independent product studio shipping software, AI, and growth surfaces for ambitious founders.",
   description:
     "GreedUp is a small product studio that has spent three years shipping booking SaaS, AI products, web apps, and the infrastructure behind them — built for founders, operators, and growth teams who need to move fast without breaking trust.",
-  url: process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.greedup.com",
   contactHref: "/contact",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "nishantnischal25@gmail.com",
   primaryContactName: "Nishant Nischal",

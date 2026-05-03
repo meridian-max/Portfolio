@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Caveat, Jost } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -7,6 +8,8 @@ import { Footer } from "@/components/layout/footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { SiteMotion } from "@/components/animation/site-motion";
 import { siteConfig } from "@/config/site";
+
+const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-TTYKVY7TQP";
 
 const sans = Jost({
   subsets: ["latin"],
@@ -90,6 +93,23 @@ export default function RootLayout({
             <ChatWidget />
           </SiteMotion>
         </ThemeProvider>
+
+        {GA_TRACKING_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}');
+              `}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   );
