@@ -2,7 +2,10 @@ import { chromium } from "@playwright/test";
 
 const baseUrl = process.env.SITE_URL ?? "http://localhost:3000";
 const expectedContactEmail =
-  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "nishantnischal25@gmail.com";
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@greedup.com";
+const expectedGmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  expectedContactEmail,
+)}`;
 
 const pages = [
   "/",
@@ -240,9 +243,9 @@ try {
     .getByRole("link", { name: /email nishant nischal/i })
     .getAttribute("href");
 
-  if (primaryEmailHref !== `mailto:${expectedContactEmail}`) {
+  if (primaryEmailHref !== expectedGmailComposeHref) {
     throw new Error(
-      `Contact page primary email CTA is not wired to ${expectedContactEmail}.`,
+      `Contact page primary email CTA is not wired to Gmail compose for ${expectedContactEmail}.`,
     );
   }
 

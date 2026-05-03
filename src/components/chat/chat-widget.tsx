@@ -31,13 +31,53 @@ const INITIAL_GREETING: ChatMessage = {
   id: "greet",
   role: "assistant",
   content:
-    "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. For anything load-bearing, I'll point you to Nishant — replies in one business day.",
+    "You're at the intake desk. Ask about engagement formats, the team, our stack, or how to start. Type Contact to open the project note page — Nishant replies within one business day.",
 };
 
 gsap.registerPlugin(useGSAP);
 
+const CONTACT_NAVIGATION_PATTERN =
+  /^(contact|contact us|contact team|contact page|open contact|open contact page|start a project)$/i;
+const MESSAGE_LINK_PATTERN = /(contact@greedup\.com|\/contact)/g;
+
 function generateId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function MessageContent({ content }: { content: string }) {
+  return (
+    <>
+      {content.split(MESSAGE_LINK_PATTERN).map((part, index) => {
+        if (part === siteConfig.email) {
+          return (
+            <a
+              key={`${part}-${index}`}
+              href={siteConfig.gmailComposeHref}
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold text-[hsl(var(--luxury))] underline decoration-2 underline-offset-4 hover:text-foreground"
+            >
+              {part}
+            </a>
+          );
+        }
+
+        if (part === siteConfig.contactHref) {
+          return (
+            <a
+              key={`${part}-${index}`}
+              href={siteConfig.contactHref}
+              className="font-bold text-[hsl(var(--luxury))] underline decoration-2 underline-offset-4 hover:text-foreground"
+            >
+              {part}
+            </a>
+          );
+        }
+
+        return part;
+      })}
+    </>
+  );
 }
 
 function parseRgb(value: string) {
@@ -229,6 +269,11 @@ export function ChatWidget() {
     const trimmed = prompt.trim();
     if (!trimmed || streaming) return;
 
+    if (CONTACT_NAVIGATION_PATTERN.test(trimmed)) {
+      window.location.assign(siteConfig.contactHref);
+      return;
+    }
+
     const userMsg: ChatMessage = {
       id: generateId(),
       role: "user",
@@ -374,7 +419,11 @@ export function ChatWidget() {
                         ↳
                       </span>
                       <div className="min-w-0 whitespace-pre-wrap break-words rounded-2xl rounded-tl-sm border-2 border-border bg-card px-4 py-3 text-sm leading-6 text-foreground">
-                        {msg.content || (streaming ? <BlinkCaret /> : "")}
+                        {msg.content ? (
+                          <MessageContent content={msg.content} />
+                        ) : streaming ? (
+                          <BlinkCaret />
+                        ) : null}
                       </div>
                     </div>
                   ) : (
@@ -450,10 +499,12 @@ export function ChatWidget() {
             <p className="font-accent mt-3 break-words text-sm font-bold leading-snug text-foreground/70 sm:text-base">
               Built by {siteConfig.name} · for anything load-bearing, email{" "}
               <a
-                href={`mailto:${siteConfig.email}`}
+                href={siteConfig.gmailComposeHref}
+                target="_blank"
+                rel="noreferrer"
                 className="text-[hsl(var(--luxury))] underline decoration-2 underline-offset-4 hover:text-foreground"
               >
-                {siteConfig.primaryContactName}
+                {siteConfig.primaryContactName} at {siteConfig.email}
               </a>{" "}
               directly.
             </p>

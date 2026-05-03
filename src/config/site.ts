@@ -17,6 +17,11 @@ export type TeamMember = {
   sourceLinks: SiteLink[];
 };
 
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@greedup.com";
+const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  contactEmail,
+)}`;
+
 export const siteConfig = {
   name: "GreedUp",
   legalName: "GreedUp Studio",
@@ -27,7 +32,8 @@ export const siteConfig = {
     "GreedUp is a small product studio that has spent three years shipping booking SaaS, AI products, web apps, and the infrastructure behind them — built for founders, operators, and growth teams who need to move fast without breaking trust.",
   url: process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.greedup.com",
   contactHref: "/contact",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "nishantnischal25@gmail.com",
+  email: contactEmail,
+  gmailComposeHref,
   primaryContactName: "Nishant Nischal",
   location: "Remote-first, working with founders across the US, Europe, and India.",
   availability: "Booking new engagements for Q3 onward.",
@@ -50,7 +56,7 @@ export const siteConfig = {
   ],
   socialLinks: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/nishant-nischal-1ba8481aa/" },
-    { label: "Email", href: "mailto:contact@greedup.com" },
+    { label: "Email", href: gmailComposeHref },
   ],
   team: [
     {

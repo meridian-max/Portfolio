@@ -127,7 +127,11 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
               <Button asChild size="lg">
-                <a href={`mailto:${siteConfig.email}`}>
+                <a
+                  href={siteConfig.gmailComposeHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Mail data-icon="inline-start" />
                   Email {siteConfig.primaryContactName}
                 </a>
