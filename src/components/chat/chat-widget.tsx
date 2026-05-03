@@ -40,13 +40,61 @@ function generateId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function parseRgb(value: string) {
+  const channels = value.match(/[\d.]+/g)?.map(Number);
+  if (!channels || channels.length < 3) return null;
+
+  return {
+    r: channels[0],
+    g: channels[1],
+    b: channels[2],
+    alpha: channels[3] ?? 1,
+  };
+}
+
+function isDarkColor({ r, g, b }: { r: number; g: number; b: number }) {
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance < 0.45;
+}
+
+function isCaptionOverDarkSurface(
+  caption: HTMLElement | null,
+  overlay: HTMLElement | null,
+) {
+  if (!caption) return false;
+
+  const rect = caption.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+
+  for (const hit of document.elementsFromPoint(x, y)) {
+    if (overlay?.contains(hit)) continue;
+
+    let current: Element | null = hit;
+    while (current) {
+      if (overlay?.contains(current)) break;
+
+      const background = parseRgb(window.getComputedStyle(current).backgroundColor);
+      if (background && background.alpha > 0.3) {
+        return isDarkColor(background);
+      }
+
+      current = current.parentElement;
+    }
+  }
+
+  return document.documentElement.classList.contains("dark");
+}
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_GREETING]);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [captionOnDark, setCaptionOnDark] = useState(false);
   const triggerRef = useRef<HTMLDivElement | null>(null);
+  const captionRef = useRef<HTMLSpanElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -140,6 +188,43 @@ export function ChatWidget() {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, streaming]);
 
+  useEffect(() => {
+    let frame = 0;
+
+    const updateCaptionTone = () => {
+      frame = 0;
+      const next = isCaptionOverDarkSurface(captionRef.current, triggerRef.current);
+      setCaptionOnDark((current) => (current === next ? current : next));
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateCaptionTone);
+    };
+
+    const themeObserver = new MutationObserver(scheduleUpdate);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    scheduleUpdate();
+    const settleTimers = [
+      window.setTimeout(scheduleUpdate, 180),
+      window.setTimeout(scheduleUpdate, 950),
+    ];
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      settleTimers.forEach((timer) => window.clearTimeout(timer));
+      themeObserver.disconnect();
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
+
   async function send(prompt: string) {
     const trimmed = prompt.trim();
     if (!trimmed || streaming) return;
@@ -207,8 +292,13 @@ export function ChatWidget() {
         className="fixed bottom-[calc(env(safe-area-inset-bottom)+1rem)] right-4 z-40 flex max-w-[calc(100vw-2rem)] items-end gap-3 sm:right-5 lg:right-6 lg:bottom-6 2xl:right-8"
       >
         <span
+          ref={captionRef}
           aria-hidden="true"
-          className="hidden font-accent text-xl font-bold leading-tight text-foreground/75 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right"
+          className={`hidden font-accent text-xl font-bold leading-tight transition-colors duration-150 2xl:block 2xl:max-w-[9rem] 2xl:translate-y-1 2xl:text-right ${
+            captionOnDark
+              ? "text-white/90 [text-shadow:0_1px_10px_rgb(0_0_0_/_0.25)]"
+              : "text-foreground/75"
+          }`}
         >
           ↳ a real reply within
           <br />

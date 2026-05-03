@@ -155,7 +155,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
             <p data-animate="hero-subtitle" className="handwritten mt-5 text-foreground">
               A product engineering studio
               <span className="ml-3 inline-block align-middle text-base text-[hsl(var(--luxury))]">
-                ↳ since 2023
+                ↳ founder builds since 2023
               </span>
             </p>
             <p
