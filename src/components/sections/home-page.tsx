@@ -396,7 +396,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {siteConfig.team.map((member) => (
-              <Card key={member.name} data-animate="card" className="h-full">
+              <Card key={member.name} data-animate="card" className="flex h-full flex-col">
                 <CardHeader className="gap-5">
                   {member.photo ? (
                     <div className="relative size-20 overflow-hidden rounded-2xl border-2 border-border bg-background shadow-[7px_7px_0_rgba(16,16,16,0.18)]">
@@ -418,7 +418,7 @@ export function HomePage({ latestPosts = [] }: { latestPosts?: LatestPost[] }) {
                     <CardDescription>{member.role}</CardDescription>
                   </div>
                 </CardHeader>
-                <CardContent className="flex flex-col gap-5">
+                <CardContent className="flex flex-1 flex-col gap-5">
                   <p className="text-sm leading-6 text-muted-foreground">{member.bio}</p>
                   <ul className="flex flex-col gap-2">
                     {member.proofBullets.map((bullet) => (
