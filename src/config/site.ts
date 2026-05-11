@@ -25,7 +25,7 @@ const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encode
 export const siteConfig = {
   name: "GreedUp",
   legalName: "GreedUp Studio",
-  foundedYear: 2023,
+  foundedYear: 2025,
   tagline:
     "An independent product studio shipping software, AI, and growth surfaces for ambitious founders.",
   description:
