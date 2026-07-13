@@ -83,8 +83,8 @@ export const siteConfig = {
     },
     {
       name: "Jigyasu Patel",
-      role: "Product Engineering & SaaS",
-      bio: "Three years shipping multi-tenant SaaS, AI products, and growth-ready frontends for early-stage founders. Owns the studio's product surface from first prototype to live revenue.",
+      role: "Co-founder, ML Engineer & AI Engineer",
+      bio: "Co-founder at GreedUp and ML Engineer at Shipd by Datacurve (YC W24), focused on AI products, SaaS systems, and production-ready product interfaces.",
       initials: "JP",
       photo: {
         src: "/team/jigyasu-patel.jpg",
@@ -94,9 +94,9 @@ export const siteConfig = {
         { label: "LinkedIn", href: "https://www.linkedin.com/in/jigyasu-patel-6a90a3257/" },
       ],
       proofBullets: [
-        "BookFlow — multi-tenant booking SaaS in production",
-        "MeetFuture — stateless AI product live in market",
-        "Goal Tracker & Meeting Assistant — shipped end-to-end",
+        "GreedUp — co-founder shipping founder-facing products",
+        "Shipd by Datacurve (YC W24) — ML engineering",
+        "BookFlow, MeetFuture, Goal Tracker, and Meeting Assistant",
       ],
       sourceLinks: [
         { label: "BookFlow live", href: "https://bookflow.store/" },
