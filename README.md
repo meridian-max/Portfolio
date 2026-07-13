@@ -13,6 +13,8 @@ Premium portfolio website for a three-person product engineering studio offering
 
 ## Local Development
 
+Requirements: Node.js 20+ and pnpm.
+
 ```bash
 pnpm install
 pnpm dev
